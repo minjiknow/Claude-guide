@@ -1,0 +1,460 @@
+/* ===== INPUT BASE ===== */
+.input {
+  height: 30px;
+  padding: 0 var(--spacing-8);
+  border: 1px solid var(--color-gray-400);
+  border-radius: var(--radius-4);
+  font-family: var(--font-family);
+  font-size: var(--font-size-body2);
+  color: var(--color-gray-900);
+  background-color: var(--color-white);
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  letter-spacing: var(--letter-spacing);
+  min-width: 0;
+  width: 100%;
+}
+
+.input::placeholder { color: var(--color-gray-500); }
+
+.input:focus {
+  border-color: var(--color-blue-500);
+  box-shadow: 0 0 0 2px rgba(51,156,213,0.12);
+}
+
+.input:disabled {
+  background-color: var(--color-gray-50);
+  color: var(--color-gray-500);
+  cursor: not-allowed;
+}
+
+.input--date {
+  width: 125px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+/* ===== SELECT ===== */
+.select {
+  height: 30px;
+  padding: 0 26px 0 var(--spacing-8);
+  border: 1px solid var(--color-gray-400);
+  border-radius: var(--radius-4);
+  font-family: var(--font-family);
+  font-size: var(--font-size-body2);
+  color: var(--color-gray-900);
+  background-color: var(--color-white);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%23929292' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 7px center;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  transition: border-color var(--transition);
+  letter-spacing: var(--letter-spacing);
+  width: 100%;
+}
+
+.select:focus {
+  border-color: var(--color-blue-500);
+  box-shadow: 0 0 0 2px rgba(51,156,213,0.12);
+}
+
+.select--sm { height: 28px; font-size: var(--font-size-caption); }
+
+/* ===== SEARCH CARD ===== */
+.search-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-4);
+  /* overflow: hidden 제거 — datepicker 팝업이 잘림 */
+}
+
+/* Section header inside search card */
+.search-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px var(--spacing-10);
+  background: var(--color-cool-gray-50);
+  border-bottom: 1px solid var(--color-gray-300);
+  gap: var(--spacing-8);
+}
+
+.search-section-header__left {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-6);
+}
+
+.search-section-header__title {
+  font-size: var(--font-size-body2);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-900);
+}
+
+.search-section-header__required {
+  color: var(--color-error);
+  font-size: var(--font-size-body2);
+  font-weight: var(--font-weight-semibold);
+}
+
+.search-section-header__count {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: var(--font-size-caption);
+  color: var(--color-gray-700);
+  font-weight: var(--font-weight-medium);
+}
+
+.count-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-deep-blue-500);
+}
+
+.search-section-header__desc {
+  font-size: var(--font-size-caption);
+  color: var(--color-gray-600);
+}
+
+.search-section-header__right {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  flex-shrink: 0;
+}
+
+/* ===== FILTER GRID (3 columns) ===== */
+.filter-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  border-bottom: 1px solid var(--color-gray-300);
+}
+
+.filter-grid__col {
+  padding: 7px var(--spacing-10);
+  border-right: 1px solid var(--color-gray-300);
+}
+
+.filter-grid__col:last-child {
+  border-right: none;
+}
+
+.filter-grid__col--with-action {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-6);
+}
+
+.filter-side-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  flex-shrink: 0;
+}
+
+/* ===== FILTER FIELD ===== */
+.filter-field {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-6);
+  flex: 1;
+  min-width: 0;
+}
+
+.filter-field--action {
+  flex: 0 0 auto;
+}
+
+.filter-label {
+  font-size: var(--font-size-body2);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-800);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.required-mark {
+  color: var(--color-error);
+  margin-left: 1px;
+}
+
+.filter-input-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Input + button/icon combo */
+.input-combo {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--color-gray-400);
+  border-radius: var(--radius-4);
+  overflow: hidden;
+  background: var(--color-white);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.input-combo:focus-within {
+  border-color: var(--color-blue-500);
+  box-shadow: 0 0 0 2px rgba(51,156,213,0.12);
+}
+
+.input-combo .input,
+.input-combo .select {
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  flex: 1;
+}
+
+.input-combo .input:focus,
+.input-combo .select:focus {
+  box-shadow: none;
+}
+
+.input-combo .btn--sm {
+  border-radius: 0;
+  border: none;
+  border-left: 1px solid var(--color-gray-300);
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.filter-search-btn {
+  border-left: 1px solid var(--color-gray-300) !important;
+  color: var(--color-gray-500);
+  width: 28px;
+  min-width: 28px;
+}
+
+.filter-search-btn:hover {
+  color: var(--color-deep-blue-500);
+}
+
+/* ===== FILTER ROW ===== */
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-10);
+  padding: 7px var(--spacing-10);
+}
+
+.filter-row + .filter-row {
+  border-top: 1px solid var(--color-gray-300);
+}
+
+/* Radio row */
+.filter-row--radio {
+  gap: var(--spacing-12);
+}
+
+.radio-group {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+}
+
+.radio-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.radio-item input[type="radio"] {
+  display: none;
+}
+
+.radio-custom {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-gray-400);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: border-color var(--transition);
+  position: relative;
+}
+
+.radio-custom::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-deep-blue-500);
+  display: none;
+}
+
+.radio-item input[type="radio"]:checked + .radio-custom {
+  border-color: var(--color-deep-blue-500);
+}
+
+.radio-item input[type="radio"]:checked + .radio-custom::after {
+  display: block;
+}
+
+.radio-label {
+  font-size: var(--font-size-caption);
+  color: var(--color-gray-700);
+  white-space: nowrap;
+}
+
+/* Datetime row */
+.filter-row--datetime {
+  gap: var(--spacing-8);
+  flex-wrap: wrap;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* datetime row의 filter-field는 줄어들지 않도록 */
+.filter-row--datetime > .filter-field {
+  flex: 0 0 auto;
+}
+
+/* ===== DATE RANGE ===== */
+.date-range-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.range-sep {
+  color: var(--color-gray-500);
+  font-size: var(--font-size-body2);
+  flex-shrink: 0;
+  padding: 0 2px;
+}
+
+/* ===== DATEPICKER INPUT ===== */
+.datepicker-input-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.datepicker-input-wrap .input {
+  padding-left: 8px;
+  padding-right: 26px;
+  cursor: pointer;
+}
+
+.datepicker-icon {
+  position: absolute;
+  right: 7px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-gray-500);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+/* ===== TIMEPICKER ===== */
+.input--time {
+  width: 84px;
+  flex-shrink: 0;
+  cursor: pointer;
+  padding-left: 8px;
+  padding-right: 26px;
+}
+
+.timepicker-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.timepicker-icon {
+  position: absolute;
+  right: 7px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-gray-500);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.timepicker-panel {
+  position: absolute;
+  top: calc(100% + 3px);
+  left: 0;
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-4);
+  box-shadow: var(--shadow-md);
+  padding: 8px 10px;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  gap: 6px;
+}
+
+.timepicker-wrap.open .timepicker-panel {
+  display: flex;
+}
+
+.tpicker-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.tpicker-btn {
+  width: 30px;
+  height: 20px;
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-4);
+  background: var(--color-cool-gray-50);
+  cursor: pointer;
+  font-size: 7px;
+  color: var(--color-gray-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.tpicker-btn:hover {
+  background: var(--color-deep-blue-20);
+  border-color: var(--color-deep-blue-500);
+  color: var(--color-deep-blue-500);
+}
+
+.tpicker-val {
+  width: 30px;
+  height: 28px;
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-4);
+  text-align: center;
+  font-family: var(--font-family);
+  font-size: var(--font-size-body2);
+  color: var(--color-gray-900);
+  outline: none;
+  letter-spacing: 0;
+}
+
+.tpicker-val:focus {
+  border-color: var(--color-blue-500);
+  box-shadow: 0 0 0 2px rgba(51,156,213,0.12);
+}
+
+.tpicker-sep {
+  font-size: 16px;
+  color: var(--color-gray-700);
+  line-height: 1;
+  margin-top: 23px; /* ▲ 버튼 + gap 높이만큼 내려서 input 행에 정렬 */
+}

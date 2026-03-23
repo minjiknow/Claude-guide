@@ -1,0 +1,60 @@
+/* ===== AIRDATEPICKER CUSTOM OVERRIDES ===== */
+
+/* Match our input style */
+.air-datepicker-global-container {
+  z-index: 9999;
+}
+
+.air-datepicker {
+  --adp-font-family: var(--font-family);
+  --adp-font-size: 13px;
+  --adp-width: 246px;
+  --adp-z-index: 9999;
+  --adp-padding: 8px;
+
+  --adp-color: var(--color-gray-900);
+  --adp-color-secondary: var(--color-gray-600);
+  --adp-accent-color: var(--color-deep-blue-500);
+  --adp-color-current-date: var(--color-deep-blue-500);
+
+  --adp-background-color: var(--color-white);
+  --adp-background-color-active: var(--color-deep-blue-500);
+  --adp-background-color-in-range: var(--color-deep-blue-20);
+  --adp-background-color-in-range-focused: var(--color-deep-blue-100);
+
+  --adp-border-color: var(--color-gray-300);
+  --adp-border-color-inner: var(--color-gray-300);
+
+  --adp-nav-color-secondary: var(--color-gray-600);
+  --adp-nav-arrow-color: var(--color-gray-700);
+  --adp-nav-arrow-color-hover: var(--color-gray-900);
+
+  --adp-day-name-color: var(--color-gray-500);
+  --adp-day-name-color-hover: var(--color-gray-900);
+
+  --adp-cell-border-radius: 4px;
+  --adp-cell-background-color-hover: var(--color-cool-gray-100);
+  --adp-cell-background-color-selected-other-month: var(--color-deep-blue-100);
+
+  border-radius: var(--radius-4);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-gray-300);
+}
+
+/* Range highlight */
+.air-datepicker-cell.-in-range- {
+  background-color: var(--color-deep-blue-20);
+}
+
+.air-datepicker-cell.-selected- {
+  background-color: var(--color-deep-blue-500) !important;
+  color: var(--color-white) !important;
+}
+
+.air-datepicker-cell.-range-from-,
+.air-datepicker-cell.-range-to- {
+  background-color: var(--color-deep-blue-500) !important;
+  color: var(--color-white) !important;
+}
+
+

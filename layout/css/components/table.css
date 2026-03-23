@@ -1,0 +1,198 @@
+/* ===== RESULTS HEADER ===== */
+.results-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-6);
+}
+
+.results-header__left {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-6);
+}
+
+.results-count {
+  font-size: var(--font-size-body2);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-900);
+}
+
+.results-count__dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--color-deep-blue-500);
+  margin: 0 3px;
+  vertical-align: middle;
+}
+
+.results-count__desc {
+  font-size: var(--font-size-caption);
+  color: var(--color-gray-600);
+}
+
+.results-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+/* ===== TABLE WRAPPER ===== */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-4);
+}
+
+.table-wrap::-webkit-scrollbar { height: 5px; }
+.table-wrap::-webkit-scrollbar-thumb {
+  background: var(--color-gray-400);
+  border-radius: 2px;
+}
+
+/* ===== TABLE ===== */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  background: var(--color-white);
+  white-space: nowrap;
+}
+
+/* Header */
+.data-table thead tr {
+  background-color: var(--color-cool-gray-50);
+  border-bottom: 1px solid var(--color-gray-300);
+}
+
+.data-table th {
+  padding: 7px var(--spacing-6);
+  font-size: 11px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-700);
+  text-align: center;
+  border-right: 1px solid var(--color-gray-300);
+  letter-spacing: var(--letter-spacing);
+  white-space: nowrap;
+}
+
+.data-table th:last-child { border-right: none; }
+
+.data-table th.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.data-table th.sortable:hover {
+  background-color: var(--color-cool-gray-100);
+  color: var(--color-gray-900);
+}
+
+.data-table th[data-sort="asc"]::after  { content: ' ↑'; }
+.data-table th[data-sort="desc"]::after { content: ' ↓'; }
+
+/* Body */
+.data-table tbody tr {
+  border-bottom: 1px solid var(--color-gray-300);
+  transition: background var(--transition);
+}
+
+.data-table tbody tr:last-child { border-bottom: none; }
+
+.data-table tbody tr:hover {
+  background-color: var(--color-cool-gray-50);
+}
+
+.data-table tbody tr.selected {
+  background-color: var(--color-deep-blue-20);
+}
+
+.data-table td {
+  padding: 6px var(--spacing-6);
+  color: var(--color-gray-800);
+  text-align: center;
+  border-right: 1px solid var(--color-gray-300);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.data-table td:last-child { border-right: none; }
+
+/* ===== COLUMN WIDTHS ===== */
+.col-check  { width: 32px; }
+.col-no     { width: 40px; }
+.col-icon   { width: 36px; }
+.col-date   { width: 130px; }
+.col-num    { width: 72px; }
+.col-text   { width: auto; min-width: 70px; }
+
+/* ===== CHECKBOX ===== */
+.table-checkbox {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  accent-color: var(--color-deep-blue-500);
+  vertical-align: middle;
+}
+
+/* ===== TABLE ACTION ICONS ===== */
+.table-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  transition: opacity var(--transition);
+  padding: 0;
+}
+
+.table-icon-btn:hover {
+  opacity: 0.75;
+}
+
+.table-icon-btn--play {
+  background-color: var(--color-state-3);
+  color: var(--color-white);
+}
+
+.table-icon-btn--screen {
+  background-color: var(--color-deep-blue-500);
+  color: var(--color-white);
+}
+
+.table-icon-btn--memo {
+  background-color: transparent;
+  color: var(--color-gray-500);
+  border: 1.5px solid var(--color-gray-400);
+  border-radius: var(--radius-4);
+}
+
+.table-icon-btn--memo:hover {
+  color: var(--color-deep-blue-500);
+  border-color: var(--color-deep-blue-500);
+}
+
+/* ===== EMPTY STATE ===== */
+.table-empty {
+  padding: 48px 20px;
+  text-align: center;
+  color: var(--color-gray-500);
+}
+
+.table-empty__icon {
+  margin-bottom: var(--spacing-8);
+  opacity: 0.4;
+  display: flex;
+  justify-content: center;
+}
+
+.table-empty__text {
+  font-size: var(--font-size-body2);
+}

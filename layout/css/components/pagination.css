@@ -1,0 +1,93 @@
+/* ===== PAGINATION FOOTER ===== */
+.table-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-8) var(--spacing-8);
+  border-top: 1px solid var(--color-gray-300);
+  background: var(--color-white);
+}
+
+.table-footer__left {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-6);
+  font-size: var(--font-size-caption);
+  color: var(--color-gray-700);
+}
+
+.page-size-select {
+  height: 28px;
+  padding: 0 22px 0 8px;
+  border: 1px solid var(--color-gray-400);
+  border-radius: var(--radius-4);
+  font-family: var(--font-family);
+  font-size: var(--font-size-caption);
+  color: var(--color-gray-900);
+  background-color: var(--color-white);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23929292' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 6px center;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+}
+
+/* ===== PAGINATION CONTROLS ===== */
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.pagination__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 4px;
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-4);
+  font-size: var(--font-size-caption);
+  font-family: var(--font-family);
+  color: var(--color-gray-700);
+  background: var(--color-white);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+  user-select: none;
+}
+
+.pagination__btn:hover:not(:disabled) {
+  background-color: var(--color-cool-gray-100);
+  border-color: var(--color-gray-400);
+  color: var(--color-gray-900);
+}
+
+.pagination__btn.active {
+  background-color: var(--color-deep-blue-500);
+  border-color: var(--color-deep-blue-500);
+  color: var(--color-white);
+  font-weight: var(--font-weight-medium);
+}
+
+.pagination__btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pagination__btn--nav {
+  min-width: 28px;
+  font-size: 12px;
+}
+
+.pagination__ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  color: var(--color-gray-500);
+  font-size: var(--font-size-caption);
+  user-select: none;
+}

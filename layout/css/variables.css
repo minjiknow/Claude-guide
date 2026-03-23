@@ -1,0 +1,103 @@
+/* ===== COLOR SYSTEM ===== */
+:root {
+  /* Primary Colors */
+  --color-blue-500: #339CD5;
+  --color-blue-300: #7ABFE5;
+  --color-blue-100: #D6EEF9;
+
+  /* Secondary Colors */
+  --color-deep-blue-500: #457CE1;
+  --color-deep-blue-100: #C5D5F8;
+  --color-deep-blue-20:  #EBF0FD;
+  --color-cool-gray-50:  #F9FAFC;
+  --color-cool-gray-100: #E6ECF3;
+  --color-cool-gray-200: #EDF0F6;
+  --color-cool-gray-300: #EDF0F6;
+
+  /* Grayscale */
+  --color-gray-900: #111111;
+  --color-gray-800: #333333;
+  --color-gray-700: #666666;
+  --color-gray-600: #929292;
+  --color-gray-500: #B8B8B8;
+  --color-gray-400: #D7D7D7;
+  --color-gray-300: #EEEEEE;
+  --color-gray-50:  #F7F7F7;
+
+  /* Semantic Colors */
+  --color-primary: var(--color-deep-blue-500);
+  --color-success: #457CE1;
+  --color-error:   #E24949;
+  --color-info:    #339CD5;
+  --color-white:   #FFFFFF;
+
+  /* Optional / State Colors */
+  --color-state-1:  #339CD5;
+  --color-state-2:  #0c8ce9;
+  --color-state-3:  #318B48;
+  --color-state-4:  #F38D00;
+  --color-state-5:  #FF4E4E;
+  --color-state-6:  #18A389;
+  --color-state-7:  #9D5EEE;
+  --color-state-8:  #3A79D8;
+  --color-state-9:  #00A170;
+  --color-state-10: #8C939O;
+
+  /* ===== TYPOGRAPHY ===== */
+  --font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+
+  --font-size-h1:      24px;
+  --font-size-h2:      18px;
+  --font-size-h3:      15px;
+  --font-size-body1:   15px;
+  --font-size-body2:   14px;
+  --font-size-caption: 12px;
+
+  --line-height-h1:      32px;
+  --line-height-h2:      26px;
+  --line-height-h3:      24px;
+  --line-height-body1:   24px;
+  --line-height-body2:   22px;
+  --line-height-caption: 18px;
+
+  --font-weight-semibold: 600;
+  --font-weight-medium:   500;
+  --font-weight-regular:  400;
+
+  --letter-spacing: -0.02em;
+
+  /* ===== SPACING ===== */
+  --spacing-1:  2px;
+  --spacing-2:  4px;
+  --spacing-3:  6px;
+  --spacing-4:  8px;
+  --spacing-5:  10px;
+  --spacing-6:  12px;
+  --spacing-7:  14px;
+  --spacing-8:  16px;
+  --spacing-9:  18px;
+  --spacing-10: 20px;
+  --spacing-12: 24px;
+  --spacing-14: 28px;
+  --spacing-16: 32px;
+  --spacing-18: 36px;
+  --spacing-19: 38px;
+
+  /* ===== RADIUS ===== */
+  --radius-4:    4px;
+  --radius-8:    8px;
+  --radius-12:   12px;
+  --radius-16:   16px;
+  --radius-full: 9999px;
+
+  /* ===== SHADOWS ===== */
+  --shadow-sm:  0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md:  0 2px 8px rgba(0,0,0,0.10);
+  --shadow-lg:  0 4px 16px rgba(0,0,0,0.12);
+
+  /* ===== LAYOUT ===== */
+  --gnb-height:    52px;
+  --lnb-width:     200px;
+  --lnb-collapsed: 52px;
+  --transition:    0.2s ease;
+}
