@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Results Table Component</title>
+	<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+		rel="stylesheet">
+	<link rel="stylesheet" href="../../assets/css/common.css" />
+	<link rel="stylesheet" href="style.css" />
+</head>
+
+<body style="padding: 20px; background: var(--gray-c50);">
+	<div class="resultsCard">
+		<div class="resultsCardBody">
+			<div class="resultsHeader">
+				<div class="resultsHeaderLeft">
+					<span class="resultsCount">
+						검색결과 <span class="resultsCountDot"></span><span id="totalCount">87</span>건
+					</span>
+					<span class="resultsCountDesc">■ 더블클릭으로 수정</span>
+				</div>
+				<div class="resultsHeaderActions">
+					<button class="btn is-add is-sm" type="button">
+						<span class="btnIcon">
+							<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+								stroke-width="2.5" aria-hidden="true">
+								<line x1="12" y1="5" x2="12" y2="19" />
+								<line x1="5" y1="12" x2="19" y2="12" />
+							</svg>
+						</span>
+						<span class="btnText">버튼</span>
+					</button>
+					<button class="btn is-edit is-sm" type="button"><span class="btnText">버튼</span></button>
+					<button class="btn is-del is-sm" type="button"><span class="btnText">버튼</span></button>
+					<button class="btn is-def is-sm" type="button"><span class="btnText">버튼</span></button>
+				</div>
+			</div>
+
+			<div class="tableWrap">
+				<table class="table" id="dataTable">
+					<thead class="tableHead">
+						<tr>
+							<th class="col-check" scope="col">
+								<input type="checkbox" class="tableCheckbox" id="checkAll" aria-label="전체 선택">
+							</th>
+							<th class="col-icon" scope="col">듣기</th>
+							<th class="col-no" scope="col">No</th>
+							<th class="col-icon" scope="col">화면</th>
+							<th class="col-icon" scope="col">메모</th>
+							<th class="col-date is-sortable" scope="col">녹취일자</th>
+							<th class="col-num is-sortable" scope="col">CallTime</th>
+							<th class="col-text is-sortable" scope="col">상담원명</th>
+							<th class="col-num is-sortable" scope="col">전화번호</th>
+							<th class="col-num is-sortable" scope="col">지점번호</th>
+							<th class="col-text is-sortable" scope="col">고객명</th>
+							<th class="col-num is-sortable" scope="col">고객번호</th>
+							<th class="col-text is-sortable" scope="col">업무구분</th>
+						</tr>
+					</thead>
+					<tbody class="tableBody" id="tableBody"></tbody>
+				</table>
+			</div>
+
+			<div class="tableFooter">
+				<div class="tableFooterLeft">
+					<select class="pageSizeSelect" id="pageSizeSelect" aria-label="페이지당 항목 수">
+						<option value="10">10개씩</option>
+						<option value="20">20개씩</option>
+						<option value="50">50개씩</option>
+						<option value="100">100개씩</option>
+					</select>
+					<span id="pageInfo" class="u-visually-hidden"></span>
+				</div>
+				<nav class="pagination" id="pagination" aria-label="페이지네이션"></nav>
+			</div>
+		</div>
+	</div>
+
+	<script src="script.js"></script>
+</body>
+
+</html>

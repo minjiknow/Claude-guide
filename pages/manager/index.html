@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>COMPLYSIGHT Manager</title>
+
+	<!-- Pretendard Font -->
+	<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+		rel="stylesheet">
+
+	<!-- AirDatepicker -->
+	<link rel="stylesheet" href="../../assets/css/vendor/air-datepicker.min.css">
+
+	<!-- Design System Tokens (common.css) -->
+	<link rel="stylesheet" href="../../assets/css/common.css">
+
+
+
+	<!-- Layout + Components (index 전용) -->
+	<link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+
+	<div class="app-shell">
+
+		<!-- ===== GNB ===== -->
+		<header class="gnb">
+			<div class="gnbLeft">
+				<a href="#" class="gnbLogo">
+					<div class="gnbLogoIcon">C</div>
+				</a>
+				<div class="gnbBrand">
+					<span class="gnbLogoText"><span>COMPLY</span>SIGHT</span>
+					<span class="gnbBadge">Manager</span>
+				</div>
+				<div class="gnbDivider"></div>
+				<div class="gnbCompanyWrap">
+					<select class="gnbCompanySelect" aria-label="업체 선택">
+						<option>업체명</option>
+						<option>업체명 A</option>
+						<option>업체명 B</option>
+					</select>
+				</div>
+			</div>
+			<div class="gnbRight">
+				<div class="gnbInfoItem">
+					<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+						aria-hidden="true">
+						<path
+							d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 15.1a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 4.39h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 12a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 19z" />
+					</svg>
+					고객행복센터
+				</div>
+				<div class="gnbDivider"></div>
+				<div class="gnbInfoItem">
+					<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+						aria-hidden="true">
+						<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+						<circle cx="12" cy="7" r="4" />
+					</svg>
+					업무담당자 : <strong>홍길동</strong>
+				</div>
+				<div class="gnbDivider"></div>
+				<div class="gnbLoginExtend" id="loginExtendBtn">
+					<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+						aria-hidden="true">
+						<circle cx="12" cy="12" r="10" />
+						<polyline points="12 6 12 12 16 14" />
+					</svg>
+					<span class="gnbLoginTimer" id="loginTimer">99:59</span>
+					<span>로그인연장</span>
+				</div>
+				<div class="gnbDivider"></div>
+				<button class="gnbIconBtn" type="button" title="앱 메뉴" aria-label="앱 메뉴">
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+						aria-hidden="true">
+						<rect x="3" y="3" width="7" height="7" />
+						<rect x="14" y="3" width="7" height="7" />
+						<rect x="14" y="14" width="7" height="7" />
+						<rect x="3" y="14" width="7" height="7" />
+					</svg>
+				</button>
+				<button class="gnbIconBtn" type="button" title="로그아웃" aria-label="로그아웃">
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+						aria-hidden="true">
+						<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+						<polyline points="16 17 21 12 16 7" />
+						<line x1="21" y1="12" x2="9" y2="12" />
+					</svg>
+				</button>
+			</div>
+		</header>
+
+		<div class="app-body">
+
+			<!-- ===== LNB ===== -->
+			<nav class="lnb" id="lnb" aria-label="사이드 내비게이션">
+
+
+				<!-- 아이콘 스트립 -->
+				<div class="lnbIcons" id="lnbIcons">
+					<svg width="56" height="16" viewBox="0 0 56 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M0 0C0 8.83656 7.16344 16 16 16H0V0Z" fill="#005CB9" />
+					</svg>
+
+					<div class="lnbItemIcons">
+						<div class="lnbIconItem" data-target="menu1" title="모니터링" role="button" tabindex="0"
+							aria-label="모니터링">
+							<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+								stroke-width="1.8" aria-hidden="true">
+								<rect x="3" y="3" width="7" height="7" />
+								<rect x="14" y="3" width="7" height="7" />
+								<rect x="14" y="14" width="7" height="7" />
+								<rect x="3" y="14" width="7" height="7" />
+							</svg>
+						</div>
+						<div class="lnbIconItem" data-target="menu2" title="녹취관리" role="button" tabindex="0"
+							aria-label="녹취관리">
+							<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+								stroke-width="1.8" aria-hidden="true">
+								<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z" />
+								<path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+								<line x1="12" y1="19" x2="12" y2="23" />
+								<line x1="8" y1="23" x2="16" y2="23" />
+							</svg>
+						</div>
+						<div class="lnbIconItem" data-target="menu3" title="통계/분석" role="button" tabindex="0"
+							aria-label="통계/분석">
+							<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+								stroke-width="1.8" aria-hidden="true">
+								<line x1="18" y1="20" x2="18" y2="10" />
+								<line x1="12" y1="20" x2="12" y2="4" />
+								<line x1="6" y1="20" x2="6" y2="14" />
+							</svg>
+						</div>
+						<div class="lnbIconItem" data-target="menu4" title="상담원관리" role="button" tabindex="0"
+							aria-label="상담원관리">
+							<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+								stroke-width="1.8" aria-hidden="true">
+								<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+								<circle cx="9" cy="7" r="4" />
+								<path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+								<path d="M16 3.13a4 4 0 0 1 0 7.75" />
+							</svg>
+						</div>
+						<div class="lnbIconItem" data-target="menu5" title="품질평가" role="button" tabindex="0"
+							aria-label="품질평가">
+							<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+								stroke-width="1.8" aria-hidden="true">
+								<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+								<polyline points="14 2 14 8 20 8" />
+								<line x1="16" y1="13" x2="8" y2="13" />
+								<line x1="16" y1="17" x2="8" y2="17" />
+							</svg>
+						</div>
+						<div class="lnbIconItem" data-target="menu6" title="시스템관리" role="button" tabindex="0"
+							aria-label="시스템관리">
+							<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+								stroke-width="1.8" aria-hidden="true">
+								<circle cx="12" cy="12" r="3" />
+								<path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14" />
+							</svg>
+						</div>
+					</div>
+
+				</div>
+
+				<!-- 텍스트 패널 -->
+				<div class="lnbText" id="lnbText">
+					<ul class="lnbMenu" role="menubar">
+						<li class="lnbItem" id="menu1" data-title="모니터링">
+							<div class="lnbLink1depth is-active" role="menuitem" aria-haspopup="true">
+								<span class="lnbLabel">1Depth 메뉴</span>
+								<svg class="lnbChevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+									stroke-width="2.5" aria-hidden="true">
+									<polyline points="9 18 15 12 9 6" />
+								</svg>
+							</div>
+							<ul class="lnbSubmenu" role="menu">
+								<li><a class="lnbLink2depth" data-section="s1-1" role="menuitem">2depth</a></li>
+								<li><a class="lnbLink2depth" data-section="s1-2" role="menuitem">2depth</a></li>
+								<li><a class="lnbLink2depth" data-section="s1-3" role="menuitem">3depth</a></li>
+								<li><a class="lnbLink2depth" data-section="s1-4" role="menuitem">4depth</a></li>
+							</ul>
+						</li>
+
+						<li class="lnbItem" id="menu2" data-title="녹취관리">
+							<div class="lnbLink1depth" role="menuitem" aria-haspopup="true">
+								<span class="lnbLabel">1Depth 메뉴</span>
+								<svg class="lnbChevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+									stroke-width="2.5" aria-hidden="true">
+									<polyline points="9 18 15 12 9 6" />
+								</svg>
+							</div>
+							<ul class="lnbSubmenu" role="menu">
+								<li><a class="lnbLink2depth" data-section="s2-1" role="menuitem">2Depth 메뉴</a></li>
+								<li><a class="lnbLink2depth" data-section="s2-2" role="menuitem">2Depth 메뉴</a></li>
+								<li><a class="lnbLink2depth" data-section="s2-3" role="menuitem">2Depth 메뉴</a></li>
+							</ul>
+						</li>
+
+						<li class="lnbItem" id="menu3" data-title="통계/분석">
+							<div class="lnbLink1depth" role="menuitem" aria-haspopup="true">
+								<span class="lnbLabel">1Depth 메뉴</span>
+								<svg class="lnbChevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+									stroke-width="2.5" aria-hidden="true">
+									<polyline points="9 18 15 12 9 6" />
+								</svg>
+							</div>
+							<ul class="lnbSubmenu" role="menu">
+								<li><a class="lnbLink2depth" data-section="s3-1" role="menuitem">2Depth 메뉴</a></li>
+								<li><a class="lnbLink2depth" data-section="s3-2" role="menuitem">2Depth 메뉴</a></li>
+								<li><a class="lnbLink2depth" data-section="s3-3" role="menuitem">2Depth 메뉴</a></li>
+							</ul>
+						</li>
+
+						<li class="lnbItem" id="menu4" data-title="상담원관리">
+							<div class="lnbLink1depth" role="menuitem" aria-haspopup="true">
+								<span class="lnbLabel">1Depth 메뉴</span>
+								<svg class="lnbChevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+									stroke-width="2.5" aria-hidden="true">
+									<polyline points="9 18 15 12 9 6" />
+								</svg>
+							</div>
+							<ul class="lnbSubmenu" role="menu">
+								<li><a class="lnbLink2depth" data-section="s4-1" role="menuitem">2Depth 메뉴</a></li>
+								<li><a class="lnbLink2depth" data-section="s4-2" role="menuitem">2Depth 메뉴</a></li>
+							</ul>
+						</li>
+
+						<li class="lnbItem" id="menu5" data-title="품질평가">
+							<div class="lnbLink1depth" role="menuitem" aria-haspopup="true">
+								<span class="lnbLabel">1Depth 메뉴</span>
+								<svg class="lnbChevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+									stroke-width="2.5" aria-hidden="true">
+									<polyline points="9 18 15 12 9 6" />
+								</svg>
+							</div>
+							<ul class="lnbSubmenu" role="menu">
+								<li><a class="lnbLink2depth" data-section="s5-1" role="menuitem">2Depth 메뉴</a></li>
+								<li><a class="lnbLink2depth" data-section="s5-2" role="menuitem">2Depth 메뉴</a></li>
+							</ul>
+						</li>
+
+						<li class="lnbItem" id="menu6" data-title="시스템관리">
+							<div class="lnbLink1depth" role="menuitem" aria-haspopup="true">
+								<span class="lnbLabel">1Depth 메뉴</span>
+								<svg class="lnbChevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+									stroke-width="2.5" aria-hidden="true">
+									<polyline points="9 18 15 12 9 6" />
+								</svg>
+							</div>
+							<ul class="lnbSubmenu" role="menu">
+								<li><a class="lnbLink2depth" data-section="s6-1" role="menuitem">2Depth 메뉴</a></li>
+								<li><a class="lnbLink2depth" data-section="s6-2" role="menuitem">2Depth 메뉴</a></li>
+							</ul>
+						</li>
+
+					</ul>
+				</div>
+
+			</nav>
+
+			<!-- ===== MAIN ===== -->
+			<main class="mainContent">
+
+				<!-- Page Header -->
+				<div class="pageHeader">
+					<div class="pageHeaderLeft">
+						<div class="pageHeaderTitleRow">
+							<h1 class="pageHeaderTitle">Title</h1>
+							<span class="pageHeaderFav" id="favBtn" title="즐겨찾기" role="button" tabindex="0"
+								aria-pressed="false">
+								<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+									stroke-width="2" aria-hidden="true">
+									<polygon
+										points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+								</svg>
+							</span>
+						</div>
+						<nav class="pageHeaderBreadcrumb" aria-label="브레드크럼">
+							<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+								stroke-width="2" aria-hidden="true">
+								<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+							</svg>
+							<span class="sep" aria-hidden="true">›</span><span>Dep1</span>
+							<span class="sep" aria-hidden="true">›</span><span>Dep2</span>
+							<span class="sep" aria-hidden="true">›</span><span>Dep3</span>
+						</nav>
+					</div>
+					<div class="pageHeaderActions">
+						<button class="btn is-secondary is-iconOnly" type="button" title="새로고침" aria-label="새로고침"
+							id="refreshBtn">
+							<span class="btnIcon">
+								<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+									stroke-width="2" aria-hidden="true">
+									<polyline points="23 4 23 10 17 10" />
+									<path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+								</svg>
+							</span>
+						</button>
+						<button class="btn is-secondary is-iconOnly" type="button" title="더보기" aria-label="더보기">
+							<span class="btnIcon">
+								<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+									stroke-width="2" aria-hidden="true">
+									<circle cx="5" cy="12" r="1" />
+									<circle cx="12" cy="12" r="1" />
+									<circle cx="19" cy="12" r="1" />
+								</svg>
+							</span>
+						</button>
+					</div>
+				</div>
+
+				<!-- Content -->
+				<div class="contentArea">
+
+					<!-- ===== SUBTREE PANEL ===== -->
+					<div class="subtreePanel">
+						<div class="subtreeHeader">Title</div>
+						<div class="subtreeBody">
+							<ul class="subtreeList">
+
+								<li class="subtreeItem">
+									<div class="subtreeNode">
+										<span class="subtreeChevron">
+											<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+												stroke-width="2.5" aria-hidden="true">
+												<polyline points="9 18 15 12 9 6" />
+											</svg>
+										</span>
+										<span class="subtreeLabel">1Depth</span>
+									</div>
+								</li>
+
+								<li class="subtreeItem is-open">
+									<div class="subtreeNode">
+										<span class="subtreeChevron">
+											<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+												stroke-width="2.5" aria-hidden="true">
+												<polyline points="9 18 15 12 9 6" />
+											</svg>
+										</span>
+										<span class="subtreeLabel">1Depth</span>
+									</div>
+									<ul class="subtreeChildren">
+										<li class="subtreeItem">
+											<div class="subtreeNode is-active">
+												<span class="subtreeChevron">
+													<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+														stroke-width="2.5" aria-hidden="true">
+														<polyline points="9 18 15 12 9 6" />
+													</svg>
+												</span>
+												<span class="subtreeLabel">2depth</span>
+											</div>
+										</li>
+										<li class="subtreeItem">
+											<div class="subtreeNode">
+												<span class="subtreeChevron">
+													<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+														stroke-width="2.5" aria-hidden="true">
+														<polyline points="9 18 15 12 9 6" />
+													</svg>
+												</span>
+												<span class="subtreeLabel">2Depth</span>
+											</div>
+										</li>
+									</ul>
+								</li>
+
+								<li class="subtreeItem">
+									<div class="subtreeNode">
+										<span class="subtreeChevron">
+											<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+												stroke-width="2.5" aria-hidden="true">
+												<polyline points="9 18 15 12 9 6" />
+											</svg>
+										</span>
+										<span class="subtreeLabel">1Depth</span>
+									</div>
+								</li>
+
+								<li class="subtreeItem">
+									<div class="subtreeNode">
+										<span class="subtreeChevron">
+											<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+												stroke-width="2.5" aria-hidden="true">
+												<polyline points="9 18 15 12 9 6" />
+											</svg>
+										</span>
+										<span class="subtreeLabel">1Depth</span>
+									</div>
+								</li>
+
+								<li class="subtreeItem">
+									<div class="subtreeNode">
+										<span class="subtreeChevron">
+											<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+												stroke-width="2.5" aria-hidden="true">
+												<polyline points="9 18 15 12 9 6" />
+											</svg>
+										</span>
+										<span class="subtreeLabel">1Depth</span>
+									</div>
+								</li>
+
+								<li class="subtreeItem">
+									<div class="subtreeNode">
+										<span class="subtreeChevron">
+											<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+												stroke-width="2.5" aria-hidden="true">
+												<polyline points="9 18 15 12 9 6" />
+											</svg>
+										</span>
+										<span class="subtreeLabel">1Depth</span>
+									</div>
+								</li>
+
+							</ul>
+						</div>
+					</div>
+
+					<!-- ===== CONTENT MAIN ===== -->
+					<div class="contentMain">
+
+						<!-- ===== SEARCH FILTER ===== -->
+						<div class="searchCard">
+							<div class="searchCardHeader">
+								<div class="searchCardHeaderLeft">
+									<span class="searchCardTitle">제목</span>
+									<span class="searchCardRequired">*</span>
+									<span class="searchCardCount">
+										<span class="countDot"></span>
+										<span id="headerCount">999</span>건
+									</span>
+									<span class="searchCardDesc">■ 정보입니다</span>
+								</div>
+								<div class="searchCardHeaderRight">
+									<button class="btn is-secondary is-sm" type="button" disabled>Disabled</button>
+									<button class="btn is-secondary is-sm" type="button" disabled>Disabled</button>
+									<button class="btn is-outlinedBlue is-sm" type="button">Default</button>
+									<button class="btn is-primary is-sm" type="button">Default</button>
+								</div>
+							</div>
+
+							<div class="searchFilterArea">
+								<div class="filterRows">
+									<!-- 행 1: 3컬럼 -->
+									<div class="filterRow">
+										<div class="filterCol">
+											<div class="filterField">
+												<label class="filterLabel">타이틀 <span
+														class="requiredMark">*</span></label>
+												<div class="filterInputWrap">
+													<div class="inputCombo">
+														<div class="dropbox " id="filterSelect1"
+															data-component="dropbox" aria-label="타이틀 선택">
+															<p class="selected-text">가나다</p>
+															<ul class="dropbox-option">
+																<li data-value="">
+																	<p class="option-text">가나다</p>
+																</li>
+																<li data-value="A">
+																	<p class="option-text">항목 A</p>
+																</li>
+																<li data-value="B">
+																	<p class="option-text">항목 B</p>
+																</li>
+															</ul>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="filterCol">
+											<div class="filterField">
+												<label class="filterLabel" for="filterText1">타이틀</label>
+												<div class="filterInputWrap">
+													<div class="inputCombo">
+														<input type="text" class="filterInput" id="filterText1"
+															placeholder="가나다" autocomplete="off">
+														<button class="btn is-ghost is-sm is-iconOnly filterSearchBtn"
+															type="button" title="검색" aria-label="검색">
+															<span class="btnIcon">
+																<svg width="13" height="13" viewBox="0 0 24 24"
+																	fill="none" stroke="currentColor" stroke-width="2"
+																	aria-hidden="true">
+																	<circle cx="11" cy="11" r="8" />
+																	<line x1="21" y1="21" x2="16.65" y2="16.65" />
+																</svg>
+															</span>
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="filterCol is-withAction">
+											<div class="filterField">
+												<label class="filterLabel" for="filterText2">타이틀</label>
+												<div class="filterInputWrap">
+													<div class="inputCombo">
+														<input type="text" class="filterInput" id="filterText2"
+															placeholder="입력하세요" autocomplete="off">
+														<button class="btn is-primary is-sm" type="button">버튼</button>
+													</div>
+
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- 행 2: 라디오 -->
+									<div class="filterRow is-radio">
+										<div class="radioGroup" role="radiogroup" aria-label="상태 필터">
+											<label class="radioItem">
+												<input type="radio" name="statusFilter" value="all">
+												<span class="radioCustom"></span>
+												<span class="radioLabel">Unchk</span>
+											</label>
+											<label class="radioItem">
+												<input type="radio" name="statusFilter" value="type1">
+												<span class="radioCustom"></span>
+												<span class="radioLabel">Unchk</span>
+											</label>
+											<label class="radioItem">
+												<input type="radio" name="statusFilter" value="type2" disabled>
+												<span class="radioCustom"></span>
+												<span class="radioLabel">Unchk</span>
+											</label>
+											<label class="radioItem">
+												<input type="radio" name="statusFilter" value="type3" checked>
+												<span class="radioCustom"></span>
+												<span class="radioLabel">ON</span>
+											</label>
+										</div>
+										<button class="btn is-primary is-sm" type="button">버튼</button>
+									</div>
+									<!-- 행 3: 날짜/시간 -->
+									<div class="filterRow is-datetime">
+										<div class="filterField">
+											<label class="filterLabel" for="dateFrom">날짜</label>
+											<div class="dateRangeWrap">
+												<div class="datepickerWrap">
+													<input type="text" class="filterInput is-date" id="dateFrom"
+														placeholder="YYYY-MM-DD" readonly>
+													<span class="datepickerIcon" aria-hidden="true">
+														<svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+															stroke="currentColor" stroke-width="2">
+															<rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+															<line x1="16" y1="2" x2="16" y2="6" />
+															<line x1="8" y1="2" x2="8" y2="6" />
+															<line x1="3" y1="10" x2="21" y2="10" />
+														</svg>
+													</span>
+												</div>
+												<span class="rangeSep" aria-hidden="true">~</span>
+												<div class="datepickerWrap">
+													<input type="text" class="filterInput is-date" id="dateTo"
+														placeholder="YYYY-MM-DD" readonly>
+													<span class="datepickerIcon" aria-hidden="true">
+														<svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+															stroke="currentColor" stroke-width="2">
+															<rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+															<line x1="16" y1="2" x2="16" y2="6" />
+															<line x1="8" y1="2" x2="8" y2="6" />
+															<line x1="3" y1="10" x2="21" y2="10" />
+														</svg>
+													</span>
+												</div>
+											</div>
+										</div>
+										<div class="filterField">
+											<label class="filterLabel" for="timeFromVal">시간</label>
+											<div class="dateRangeWrap">
+												<div class="timepickerWrap" id="timeFrom">
+													<input type="text" class="timeInput" id="timeFromVal" value="00:00"
+														placeholder="00:00" readonly>
+													<span class="timepickerIcon" aria-hidden="true">
+														<svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+															stroke="currentColor" stroke-width="2">
+															<circle cx="12" cy="12" r="10" />
+															<polyline points="12 6 12 12 16 14" />
+														</svg>
+													</span>
+													<div class="timepickerPanel" role="dialog" aria-label="시작 시간 선택">
+														<div class="tpickerCol">
+															<button class="tpickerBtn" type="button"
+																data-target="timeFromH" data-action="up"
+																aria-label="시 증가">▲</button>
+															<input class="tpickerVal" id="timeFromH" value="00"
+																maxlength="2" aria-label="시">
+															<button class="tpickerBtn" type="button"
+																data-target="timeFromH" data-action="down"
+																aria-label="시 감소">▼</button>
+														</div>
+														<span class="tpickerSep" aria-hidden="true">:</span>
+														<div class="tpickerCol">
+															<button class="tpickerBtn" type="button"
+																data-target="timeFromM" data-action="up"
+																aria-label="분 증가">▲</button>
+															<input class="tpickerVal" id="timeFromM" value="00"
+																maxlength="2" aria-label="분">
+															<button class="tpickerBtn" type="button"
+																data-target="timeFromM" data-action="down"
+																aria-label="분 감소">▼</button>
+														</div>
+													</div>
+												</div>
+												<span class="rangeSep" aria-hidden="true">~</span>
+												<div class="timepickerWrap" id="timeTo">
+													<input type="text" class="timeInput" id="timeToVal" value="23:59"
+														placeholder="00:00" readonly>
+													<span class="timepickerIcon" aria-hidden="true">
+														<svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+															stroke="currentColor" stroke-width="2">
+															<circle cx="12" cy="12" r="10" />
+															<polyline points="12 6 12 12 16 14" />
+														</svg>
+													</span>
+													<div class="timepickerPanel" role="dialog" aria-label="종료 시간 선택">
+														<div class="tpickerCol">
+															<button class="tpickerBtn" type="button"
+																data-target="timeToH" data-action="up"
+																aria-label="시 증가">▲</button>
+															<input class="tpickerVal" id="timeToH" value="23"
+																maxlength="2" aria-label="시">
+															<button class="tpickerBtn" type="button"
+																data-target="timeToH" data-action="down"
+																aria-label="시 감소">▼</button>
+														</div>
+														<span class="tpickerSep" aria-hidden="true">:</span>
+														<div class="tpickerCol">
+															<button class="tpickerBtn" type="button"
+																data-target="timeToM" data-action="up"
+																aria-label="분 증가">▲</button>
+															<input class="tpickerVal" id="timeToM" value="59"
+																maxlength="2" aria-label="분">
+															<button class="tpickerBtn" type="button"
+																data-target="timeToM" data-action="down"
+																aria-label="분 감소">▼</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="filterField is-action">
+											<button class="btn is-primary is-sm" type="button">버튼</button>
+										</div>
+									</div>
+								</div>
+								<!-- 검색초기화 버튼 -->
+								<div class="filterSideActions">
+									<button class="btn is-primary Card-SearchActionBtn hfull" type="button"
+										id="searchBtn">검색</button>
+									<button class="btn is-secondary Card-ResetActionBtn hfull" type="button" title="초기화"
+										aria-label="초기화" id="resetBtn">
+										<span class="btnIcon">
+											<svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+												stroke="currentColor" stroke-width="2" aria-hidden="true">
+												<polyline points="23 4 23 10 17 10" />
+												<path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+											</svg>
+										</span>
+									</button>
+								</div>
+							</div>
+
+						</div>
+
+						<!-- ===== RESULTS TABLE ===== -->
+						<div class="resultsCard">
+							<div class="resultsCardBody">
+
+								<div class="resultsHeader">
+									<div class="resultsHeaderLeft">
+										<span class="resultsCount">
+											검색결과 <span class="resultsCountDot"></span><span id="totalCount">87</span>건
+										</span>
+										<span class="resultsCountDesc">■ 더블클릭으로 수정</span>
+									</div>
+									<div class="resultsHeaderActions">
+										<button class="btn is-add is-sm" type="button">
+											<span class="btnIcon">
+												<svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+													stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+													<line x1="12" y1="5" x2="12" y2="19" />
+													<line x1="5" y1="12" x2="19" y2="12" />
+												</svg>
+											</span>
+											<span class="btnText">버튼</span>
+										</button>
+										<button class="btn is-edit is-sm" type="button"><span
+												class="btnText">버튼</span></button>
+										<button class="btn is-del is-sm" type="button"><span
+												class="btnText">버튼</span></button>
+										<button class="btn is-def is-sm" type="button"><span
+												class="btnText">버튼</span></button>
+									</div>
+								</div>
+
+								<div class="tableWrap">
+									<table class="table" id="dataTable">
+										<thead class="tableHead">
+											<tr>
+												<th class="col-check" scope="col">
+													<input type="checkbox" class="tableCheckbox" id="checkAll"
+														aria-label="전체 선택">
+												</th>
+												<th class="col-icon" scope="col">듣기</th>
+												<th class="col-no" scope="col">No</th>
+												<th class="col-icon" scope="col">화면</th>
+												<th class="col-icon" scope="col">메모</th>
+												<th class="col-date is-sortable" scope="col">녹취일자</th>
+												<th class="col-num is-sortable" scope="col">CallTime</th>
+												<th class="col-text is-sortable" scope="col">상담원명</th>
+												<th class="col-num is-sortable" scope="col">전화번호</th>
+												<th class="col-num is-sortable" scope="col">지점번호</th>
+												<th class="col-text is-sortable" scope="col">고객명</th>
+												<th class="col-num is-sortable" scope="col">고객번호</th>
+												<th class="col-text is-sortable" scope="col">업무구분</th>
+											</tr>
+										</thead>
+										<tbody class="tableBody" id="tableBody"></tbody>
+									</table>
+								</div>
+
+								<div class="tableFooter">
+									<div class="tableFooterLeft">
+										<select class="pageSizeSelect" id="pageSizeSelect" aria-label="페이지당 항목 수">
+											<option value="10">10개씩</option>
+											<option value="20">20개씩</option>
+											<option value="50">50개씩</option>
+											<option value="100">100개씩</option>
+										</select>
+										<span id="pageInfo" class="u-visually-hidden"></span>
+									</div>
+									<nav class="pagination" id="pagination" aria-label="페이지네이션"></nav>
+								</div>
+
+							</div>
+						</div>
+
+					</div><!-- /contentMain -->
+
+				</div>
+			</main>
+		</div>
+	</div>
+
+	<!-- jQuery -->
+	<script src="../../assets/jquery/jquery-4.0.0.min.js"></script>
+	<!-- AirDatepicker -->
+	<script src="../../assets/js/vendor/air-datepicker.min.js"></script>
+	<!-- App Script -->
+	<script src="./index.js"></script>
+
+</body>
+
+</html>

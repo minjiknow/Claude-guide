@@ -1,0 +1,195 @@
+/* ===== DEMO LAYOUT ===== */
+.l-page {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background: var(--gray-c50);
+  min-height: 100vh;
+}
+
+.l-sectionBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.l-sectionBlock h2 {
+  font-size: var(--font-small);
+  font-weight: var(--font-weight-semibold);
+  color: var(--gray-800);
+}
+
+/* ===== DATE RANGE ===== */
+.dateRangeWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.rangeSep {
+  color: var(--gray-600);
+  font-size: var(--font-small);
+}
+
+.datepickerWrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.filterInput.is-date {
+  width: 125px;
+  padding-left: 8px;
+  padding-right: 26px;
+  cursor: pointer;
+}
+
+.datepickerIcon {
+  position: absolute;
+  right: 7px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray-500);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* ===== TIMEPICKER ===== */
+.timeInput {
+  width: 84px;
+  height: 30px;
+  padding: 0 26px 0 8px;
+  border: 1px solid var(--gray-400);
+  border-radius: var(--border-radius-4);
+  background: var(--color-white);
+  font-family: inherit;
+  font-size: var(--font-xsmall);
+  color: var(--gray-900);
+  cursor: pointer;
+  outline: none;
+}
+
+.timepickerWrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.timepickerIcon {
+  position: absolute;
+  right: 7px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray-500);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.timepickerPanel {
+  position: absolute;
+  top: calc(100% + 3px);
+  left: 0;
+  display: none;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  background: var(--color-white);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius-4);
+  box-shadow: 0 10px 24px rgba(17, 17, 17, 0.08);
+  z-index: 9999;
+}
+
+.timepickerWrap.is-open .timepickerPanel {
+  display: flex;
+}
+
+.tpickerCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.tpickerBtn {
+  width: 30px;
+  height: 20px;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius-4);
+  background: var(--gray-c50);
+  color: var(--gray-600);
+  font-size: 7px;
+  line-height: 1;
+}
+
+.tpickerBtn:hover {
+  background: rgba(69, 124, 225, 0.06);
+  border-color: var(--secondary-500);
+  color: var(--secondary-500);
+}
+
+.tpickerVal {
+  width: 30px;
+  height: 28px;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius-4);
+  text-align: center;
+  font-family: inherit;
+  font-size: var(--font-xsmall);
+  color: var(--gray-900);
+  outline: none;
+}
+
+.tpickerVal:focus {
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 2px rgba(51, 156, 213, 0.12);
+}
+
+.tpickerSep {
+  margin-top: 23px;
+  color: var(--gray-700);
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* ===== AIRDATEPICKER CUSTOM OVERRIDES ===== */
+.air-datepicker-global-container {
+  z-index: 9999;
+}
+
+.air-datepicker {
+  --adp-font-size: 13px;
+  --adp-width: 246px;
+  --adp-z-index: 9999;
+  --adp-padding: 8px;
+  --adp-color: var(--gray-900);
+  --adp-color-secondary: var(--gray-600);
+  --adp-accent-color: var(--secondary-500);
+  --adp-color-current-date: var(--secondary-500);
+  --adp-background-color: var(--color-white);
+  --adp-background-color-active: var(--secondary-500);
+  --adp-background-color-in-range: rgba(69, 124, 225, 0.1);
+  --adp-background-color-in-range-focused: rgba(69, 124, 225, 0.16);
+  --adp-border-color: var(--gray-300);
+  --adp-border-color-inner: var(--gray-300);
+  --adp-nav-color-secondary: var(--gray-600);
+  --adp-nav-arrow-color: var(--gray-700);
+  --adp-nav-arrow-color-hover: var(--gray-900);
+  --adp-day-name-color: var(--gray-500);
+  --adp-day-name-color-hover: var(--gray-900);
+  --adp-cell-border-radius: 4px;
+  --adp-cell-background-color-hover: var(--gray-c100);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius-4);
+  box-shadow: 0 10px 24px rgba(17, 17, 17, 0.08);
+}
+
+.air-datepicker-cell.-selected-,
+.air-datepicker-cell.-range-from-,
+.air-datepicker-cell.-range-to- {
+  background-color: var(--secondary-500) !important;
+  color: var(--color-white) !important;
+}

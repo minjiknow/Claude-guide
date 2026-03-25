@@ -1,0 +1,142 @@
+/* =============================================
+   DROPDOWN COMPONENT
+   ============================================= */
+.l-page {
+  padding: 24px;
+  background: var(--gray-c50);
+  min-height: 100vh;
+}
+
+.demoCol {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 240px;
+}
+
+.dropbox {
+  position: relative;
+  width: 100%;
+  min-width: 140px;
+  height: 30px;
+  padding: 0 var(--spacing-8);
+  border: 1px solid var(--gray-400);
+  border-radius: var(--border-radius-4);
+  background: var(--color-white);
+  cursor: pointer;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.selected-text {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding-right: 18px;
+  background-color: transparent;
+  font-size: var(--font-xsmall);
+  color: var(--gray-900);
+  line-height: 1;
+}
+
+.dropbox::after {
+  content: '';
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid var(--gray-600);
+  border-bottom: 1.5px solid var(--gray-600);
+  transform: translateY(-60%) rotate(45deg);
+  transition: transform var(--transition);
+  pointer-events: none;
+}
+
+.dropbox.active {
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 2px rgba(51, 156, 213, 0.12);
+}
+
+.dropbox.active::after {
+  transform: translateY(-40%) rotate(-135deg);
+}
+
+.dropbox-option {
+  display: none;
+  position: absolute;
+  top: calc(100% + 3px);
+  left: -1px;
+  width: 100%;
+  min-width: calc(100% + 2px);
+  background-color: var(--color-white);
+  border: 1px solid var(--gray-400);
+  border-radius: var(--border-radius-4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  z-index: 100;
+  overflow: hidden;
+}
+
+.dropbox-option.active {
+  display: block;
+}
+
+.dropbox-option li {
+  cursor: pointer;
+  padding: 0 var(--spacing-8);
+  transition: background-color var(--transition);
+}
+
+.dropbox-option li:hover,
+.dropbox-option li.selected {
+  background-color: var(--gray-50);
+}
+
+.dropbox-option li.selected .option-text {
+  color: var(--secondary-500);
+  font-weight: var(--font-weight-medium);
+}
+
+.option-text {
+  padding: 7px 0;
+  font-size: var(--font-xsmall);
+  color: var(--gray-900);
+  line-height: var(--line-height-140);
+}
+
+.option-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.optionMark {
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid var(--gray-400);
+  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  background: var(--color-white);
+}
+
+.dropbox-option li.selected .optionMark {
+  border-color: var(--primary-500);
+  background: var(--primary-500);
+}
+
+.dropbox-option li.selected .optionMark::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 4px;
+  height: 8px;
+  border: 2px solid var(--color-white);
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Dropdown Component</title>
+	<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+		rel="stylesheet">
+	<link rel="stylesheet" href="../../assets/css/common.css" />
+	<link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+	<main class="l-page">
+
+		<div class="demoCol">
+			<div class="dropbox" data-component="dropbox">
+				<p class="selected-text">전체</p>
+				<ul class="dropbox-option">
+					<li data-value="">
+						<p class="option-text">전체</p>
+					</li>
+					<li data-value="A">
+						<p class="option-text">진행 중</p>
+					</li>
+					<li data-value="B">
+						<p class="option-text">완료</p>
+					</li>
+					<li data-value="C">
+						<p class="option-text">보류</p>
+					</li>
+				</ul>
+			</div>
+
+			<div class="dropbox" data-component="dropbox" data-multi="true">
+				<p class="selected-text">전체</p>
+				<ul class="dropbox-option">
+					<li data-value="A">
+						<div class="option-inner">
+							<span class="optionMark"></span>
+							<p class="option-text">진행 중</p>
+						</div>
+					</li>
+					<li data-value="B">
+						<div class="option-inner">
+							<span class="optionMark"></span>
+							<p class="option-text">완료</p>
+						</div>
+					</li>
+					<li data-value="C">
+						<div class="option-inner">
+							<span class="optionMark"></span>
+							<p class="option-text">보류</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</main>
+
+	<script src="../../assets/js/components/dropbox.js"></script>
+</body>
+
+</html>

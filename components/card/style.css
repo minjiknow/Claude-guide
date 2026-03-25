@@ -1,0 +1,98 @@
+/* =============================================
+   CARD COMPONENT
+   ============================================= */
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--border-radius-16);
+  background-color: var(--color-white);
+  overflow: hidden;
+}
+
+.card.is-shadow {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.card.is-outline {
+  border: 1px solid var(--gray-300);
+}
+
+/* Header */
+.cardHeader {
+  padding: var(--spacing-16) var(--spacing-24);
+  border-bottom: 1px solid var(--gray-300);
+}
+
+.cardTitle {
+  font-size: var(--font-primary);
+  font-weight: var(--font-weight-semibold);
+  color: var(--gray-900);
+  line-height: var(--line-height-140);
+}
+
+.cardSubtitle {
+  margin-top: var(--spacing-4);
+  font-size: var(--font-xsmall);
+  color: var(--gray-600);
+  line-height: var(--line-height-140);
+}
+
+/* Body */
+.cardBody {
+  flex: 1;
+  padding: var(--spacing-16) var(--spacing-24);
+  font-size: var(--font-small);
+  color: var(--gray-800);
+  line-height: var(--line-height-150);
+}
+
+/* Footer */
+.cardFooter {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  padding: var(--spacing-12) var(--spacing-24);
+  border-top: 1px solid var(--gray-300);
+}
+
+/* =============================================
+   Button 인라인 참조
+   ============================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-6);
+  padding: var(--spacing-8) var(--spacing-16);
+  border-radius: var(--border-radius-8);
+  font-size: var(--font-small);
+  font-weight: var(--font-weight-medium);
+  transition: opacity 0.15s ease;
+}
+
+.btn.is-primary {
+  background-color: var(--primary-500);
+  color: var(--color-white);
+}
+
+.btn.is-secondary {
+  background-color: var(--color-white);
+  color: var(--gray-800);
+  border: 1px solid var(--gray-400);
+}
+
+.btn.is-ghost {
+  background-color: transparent;
+  color: var(--primary-500);
+  border: 1px solid var(--primary-500);
+}
+
+/* =============================================
+   PAGE LAYOUT (데모용)
+   ============================================= */
+.l-page {
+  padding: var(--spacing-24);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+  max-width: 480px;
+}

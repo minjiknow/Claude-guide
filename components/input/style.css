@@ -1,0 +1,131 @@
+/* ===== DEMO LAYOUT ===== */
+.l-page {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    background: var(--gray-c50);
+    min-height: 100vh;
+}
+
+.l-sectionBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.l-sectionBlock h2 {
+    font-size: var(--font-small);
+    font-weight: var(--font-weight-semibold);
+    color: var(--gray-800);
+}
+
+.demoCol {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 320px;
+}
+
+.demoRow {
+    max-width: 280px;
+}
+
+.demoRow-sm {
+    max-width: 200px;
+}
+
+/* ===== INPUT ===== */
+.filterInput,
+.filterSelect {
+    width: 100%;
+    height: 30px;
+    padding: 0 var(--spacing-8);
+    border: 1px solid var(--gray-400);
+    border-radius: var(--border-radius-4);
+    background: var(--color-white);
+    font-family: inherit;
+    font-size: var(--font-xsmall);
+    color: var(--gray-900);
+    outline: none;
+    transition:
+        border-color var(--transition),
+        box-shadow var(--transition);
+}
+
+.filterInput::placeholder {
+    color: var(--gray-500);
+}
+
+.filterInput:focus,
+.filterSelect:focus {
+    border-color: var(--primary-500);
+    box-shadow: 0 0 0 2px rgba(51, 156, 213, 0.12);
+}
+
+.filterInput[readonly] {
+    background-color: var(--gray-50);
+    cursor: default;
+}
+
+.filterInput:disabled,
+.filterSelect:disabled {
+    background-color: var(--gray-50);
+    color: var(--gray-500);
+}
+
+.filterSelect {
+    padding-right: 26px;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%23929292' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 7px center;
+}
+
+.inputCombo {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--gray-400);
+    border-radius: var(--border-radius-4);
+    overflow: hidden;
+    background: var(--color-white);
+    transition:
+        border-color var(--transition),
+        box-shadow var(--transition);
+    gap: var(--spacing-8);
+}
+
+.inputCombo:focus-within {
+    border-color: var(--primary-500);
+    box-shadow: 0 0 0 2px rgba(51, 156, 213, 0.12);
+}
+
+.inputCombo .filterInput,
+.inputCombo .filterSelect {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    flex: 1;
+}
+
+.inputCombo .filterInput:focus,
+.inputCombo .filterSelect:focus {
+    box-shadow: none;
+}
+
+.inputCombo .btn.is-sm {
+    border: none;
+    border-left: 1px solid var(--gray-300);
+    border-radius: 0;
+    flex-shrink: 0;
+}
+
+.filterSearchBtn {
+    width: 28px;
+    min-width: 28px;
+    color: var(--gray-500);
+}
+
+.filterSearchBtn:hover {
+    color: var(--secondary-500);
+}

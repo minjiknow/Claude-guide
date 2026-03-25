@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Search Filter Component</title>
+
+	<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+		rel="stylesheet">
+	<link rel="stylesheet" href="../assets/css/vendor/air-datepicker.min.css">
+	<link rel="stylesheet" href="../assets/css/common.css">
+	<link rel="stylesheet" href="../components/search-filter/style.css">
+</head>
+
+<body>
+	<div class="searchCard">
+		<div class="searchCardHeader">
+			<div class="searchCardHeaderLeft">
+				<span class="searchCardTitle">제목</span>
+				<span class="searchCardRequired">*</span>
+				<span class="searchCardCount">
+					<span class="countDot"></span>
+					<span id="headerCount">999</span>건
+				</span>
+				<span class="searchCardDesc">■ 정보입니다</span>
+			</div>
+			<div class="searchCardHeaderRight">
+				<button class="btn is-secondary is-sm" type="button" disabled>Disabled</button>
+				<button class="btn is-secondary is-sm" type="button" disabled>Disabled</button>
+				<button class="btn is-outlinedBlue is-sm" type="button">Default</button>
+				<button class="btn is-primary is-sm" type="button">Default</button>
+			</div>
+		</div>
+
+		<div class="filterGrid">
+			<div class="filterCol">
+				<div class="filterField">
+					<label class="filterLabel">단일 선택</label>
+					<div class="filterInputWrap">
+						<div class="dropbox" data-component="dropbox">
+							<p class="selected-text">전체</p>
+							<ul class="dropbox-option">
+								<li data-value="A">
+									<p class="option-text">항목 A</p>
+								</li>
+								<li data-value="B">
+									<p class="option-text">항목 B</p>
+								</li>
+								<li data-value="C">
+									<p class="option-text">항목 C</p>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="filterCol">
+				<div class="filterField">
+					<label class="filterLabel">멀티 선택</label>
+					<div class="filterInputWrap">
+						<div class="dropbox" data-component="dropbox" data-multi="true">
+							<p class="selected-text">전체</p>
+							<ul class="dropbox-option">
+								<li data-value="A">
+									<div class="option-inner">
+										<span class="optionMark"></span>
+										<p class="option-text">항목 A</p>
+									</div>
+								</li>
+								<li data-value="B">
+									<div class="option-inner">
+										<span class="optionMark"></span>
+										<p class="option-text">항목 B</p>
+									</div>
+								</li>
+								<li data-value="C">
+									<div class="option-inner">
+										<span class="optionMark"></span>
+										<p class="option-text">항목 C</p>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="filterCol is-withAction">
+				<div class="filterSideActions">
+					<button class="btn is-primary is-sm" type="button" id="dropboxSearchBtn">검색</button>
+					<button class="btn is-secondary is-sm is-iconOnly" type="button" title="초기화" aria-label="초기화"
+						id="dropboxResetBtn">
+						<span class="btnIcon">
+							<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+								stroke-width="2" aria-hidden="true">
+								<polyline points="23 4 23 10 17 10" />
+								<path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+							</svg>
+						</span>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="filterGrid">
+			<div class="filterCol">
+				<div class="filterField">
+					<label class="filterLabel">타이틀 <span class="requiredMark">*</span></label>
+					<div class="filterInputWrap">
+						<div class="inputCombo">
+							<div class="dropbox" id="filterSelect1" data-component="dropbox" aria-label="타이틀 선택">
+								<p class="selected-text">가나다</p>
+								<ul class="dropbox-option">
+									<li data-value="">
+										<p class="option-text">가나다</p>
+									</li>
+									<li data-value="A">
+										<p class="option-text">항목 A</p>
+									</li>
+									<li data-value="B">
+										<p class="option-text">항목 B</p>
+									</li>
+								</ul>
+							</div>
+							<button class="btn is-ghost is-sm is-iconOnly filterSearchBtn" type="button" title="검색"
+								aria-label="검색">
+								<span class="btnIcon">
+									<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+										stroke-width="2" aria-hidden="true">
+										<circle cx="11" cy="11" r="8" />
+										<line x1="21" y1="21" x2="16.65" y2="16.65" />
+									</svg>
+								</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="filterCol">
+				<div class="filterField">
+					<label class="filterLabel" for="filterText1">타이틀</label>
+					<div class="filterInputWrap">
+						<div class="inputCombo">
+							<input type="text" class="filterInput" id="filterText1" placeholder="가나다"
+								autocomplete="off">
+							<button class="btn is-ghost is-sm is-iconOnly filterSearchBtn" type="button" title="검색"
+								aria-label="검색">
+								<span class="btnIcon">
+									<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+										stroke-width="2" aria-hidden="true">
+										<circle cx="11" cy="11" r="8" />
+										<line x1="21" y1="21" x2="16.65" y2="16.65" />
+									</svg>
+								</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="filterCol is-withAction">
+				<div class="filterField">
+					<label class="filterLabel" for="filterText2">타이틀</label>
+					<div class="filterInputWrap">
+						<div class="inputCombo">
+							<input type="text" class="filterInput" id="filterText2" placeholder="입력하세요"
+								autocomplete="off">
+							<button class="btn is-primary is-sm" type="button">버튼</button>
+						</div>
+					</div>
+				</div>
+				<div class="filterSideActions">
+					<button class="btn is-primary is-sm" type="button" id="searchBtn">검색</button>
+					<button class="btn is-secondary is-sm is-iconOnly" type="button" title="초기화" aria-label="초기화"
+						id="resetBtn">
+						<span class="btnIcon">
+							<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+								stroke-width="2" aria-hidden="true">
+								<polyline points="23 4 23 10 17 10" />
+								<path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+							</svg>
+						</span>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="filterRow is-radio">
+			<div class="radioGroup" role="radiogroup" aria-label="상태 필터">
+				<label class="radioItem">
+					<input type="radio" name="statusFilter" value="all">
+					<span class="radioCustom"></span>
+					<span class="radioLabel">Unchk</span>
+				</label>
+				<label class="radioItem">
+					<input type="radio" name="statusFilter" value="type1">
+					<span class="radioCustom"></span>
+					<span class="radioLabel">Unchk</span>
+				</label>
+				<label class="radioItem">
+					<input type="radio" name="statusFilter" value="type2">
+					<span class="radioCustom"></span>
+					<span class="radioLabel">Unchk</span>
+				</label>
+				<label class="radioItem">
+					<input type="radio" name="statusFilter" value="type3" checked>
+					<span class="radioCustom"></span>
+					<span class="radioLabel">Chk</span>
+				</label>
+			</div>
+			<button class="btn is-primary is-sm" type="button">버튼</button>
+		</div>
+
+		<div class="filterRow is-datetime">
+			<div class="filterField">
+				<label class="filterLabel" for="dateFrom">날짜</label>
+				<div class="dateRangeWrap">
+					<div class="datepickerWrap">
+						<input type="text" class="filterInput is-date" id="dateFrom" placeholder="YYYY-MM-DD" readonly>
+						<span class="datepickerIcon" aria-hidden="true">
+							<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+								stroke-width="2">
+								<rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+								<line x1="16" y1="2" x2="16" y2="6" />
+								<line x1="8" y1="2" x2="8" y2="6" />
+								<line x1="3" y1="10" x2="21" y2="10" />
+							</svg>
+						</span>
+					</div>
+					<span class="rangeSep" aria-hidden="true">~</span>
+					<div class="datepickerWrap">
+						<input type="text" class="filterInput is-date" id="dateTo" placeholder="YYYY-MM-DD" readonly>
+						<span class="datepickerIcon" aria-hidden="true">
+							<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+								stroke-width="2">
+								<rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+								<line x1="16" y1="2" x2="16" y2="6" />
+								<line x1="8" y1="2" x2="8" y2="6" />
+								<line x1="3" y1="10" x2="21" y2="10" />
+							</svg>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="filterField">
+				<label class="filterLabel" for="timeFromVal">시간</label>
+				<div class="dateRangeWrap">
+					<div class="timepickerWrap" id="timeFrom">
+						<input type="text" class="timeInput" id="timeFromVal" value="00:00" placeholder="00:00"
+							readonly>
+						<span class="timepickerIcon" aria-hidden="true">
+							<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+								stroke-width="2">
+								<circle cx="12" cy="12" r="10" />
+								<polyline points="12 6 12 12 16 14" />
+							</svg>
+						</span>
+						<div class="timepickerPanel" role="dialog" aria-label="시작 시간 선택">
+							<div class="tpickerCol">
+								<button class="tpickerBtn" type="button" data-target="timeFromH" data-action="up"
+									aria-label="시 증가">▲</button>
+								<input class="tpickerVal" id="timeFromH" value="00" maxlength="2" aria-label="시">
+								<button class="tpickerBtn" type="button" data-target="timeFromH" data-action="down"
+									aria-label="시 감소">▼</button>
+							</div>
+							<span class="tpickerSep" aria-hidden="true">:</span>
+							<div class="tpickerCol">
+								<button class="tpickerBtn" type="button" data-target="timeFromM" data-action="up"
+									aria-label="분 증가">▲</button>
+								<input class="tpickerVal" id="timeFromM" value="00" maxlength="2" aria-label="분">
+								<button class="tpickerBtn" type="button" data-target="timeFromM" data-action="down"
+									aria-label="분 감소">▼</button>
+							</div>
+						</div>
+					</div>
+					<span class="rangeSep" aria-hidden="true">~</span>
+					<div class="timepickerWrap" id="timeTo">
+						<input type="text" class="timeInput" id="timeToVal" value="23:59" placeholder="00:00" readonly>
+						<span class="timepickerIcon" aria-hidden="true">
+							<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+								stroke-width="2">
+								<circle cx="12" cy="12" r="10" />
+								<polyline points="12 6 12 12 16 14" />
+							</svg>
+						</span>
+						<div class="timepickerPanel" role="dialog" aria-label="종료 시간 선택">
+							<div class="tpickerCol">
+								<button class="tpickerBtn" type="button" data-target="timeToH" data-action="up"
+									aria-label="시 증가">▲</button>
+								<input class="tpickerVal" id="timeToH" value="23" maxlength="2" aria-label="시">
+								<button class="tpickerBtn" type="button" data-target="timeToH" data-action="down"
+									aria-label="시 감소">▼</button>
+							</div>
+							<span class="tpickerSep" aria-hidden="true">:</span>
+							<div class="tpickerCol">
+								<button class="tpickerBtn" type="button" data-target="timeToM" data-action="up"
+									aria-label="분 증가">▲</button>
+								<input class="tpickerVal" id="timeToM" value="59" maxlength="2" aria-label="분">
+								<button class="tpickerBtn" type="button" data-target="timeToM" data-action="down"
+									aria-label="분 감소">▼</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="filterField is-action">
+				<button class="btn is-primary is-sm" type="button">버튼</button>
+			</div>
+		</div>
+	</div>
+
+	<script src="../assets/js/vendor/air-datepicker.min.js"></script>
+	<script src="../assets/js/components/dropbox.js"></script>
+	<script src="../components/search-filter/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,250 @@
+/* =============================================
+   DESIGN TOKENS
+   ============================================= */
+:root {
+    /* Primary */
+    --primary-500: #339cd5;
+    --primary-rgb: 51, 156, 213;
+    --primary-300: rgba(var(--primary-rgb), 0.3);
+    --primary-100: rgba(var(--primary-rgb), 0.1);
+
+    /* Secondary */
+    --secondary-500: #457ce1;
+    --secondary-rgb: 69, 124, 225;
+    --secondary-300: rgba(var(--secondary-rgb), 0.3);
+    --secondary-100: rgba(var(--secondary-rgb), 0.1);
+    --secondary-20: rgba(var(--secondary-rgb), 0.02);
+
+    /* Neutral */
+    --gray-900: #111111;
+    --gray-800: #333333;
+    --gray-700: #666666;
+    --gray-600: #929292;
+    --gray-500: #bbbbbb;
+    --gray-400: #d7d7d7;
+    --gray-300: #eeeeee;
+    --gray-200: #dddddd;
+    --gray-50: #f7f7f7;
+    --gray-c50: #f9fafc;
+    --gray-c100: rgba(233, 236, 243, 0.5);
+    --gray-c200: #edf0f6;
+
+    /* Semantic */
+    --color-success: #19973c;
+    --color-error: #e24949;
+    --color-warning: #d15e00;
+    --color-info: #339cd5;
+
+    /* Pure */
+    --color-red: #e24949;
+    --color-black: #000000;
+    --color-white: #ffffff;
+
+    /* Brand */
+    --color-mainbrand: #005cb9;
+    --color-secondarybrand: #15803d;
+
+    /* Optional */
+    --state1: #339cd5;
+    --state2: #0c8ce9;
+    --state3: #31bb48;
+    --state4: #f36d00;
+    --state5: #ff4e4e;
+    --state6: #18a3b9;
+    --state7: #9d5eee;
+    --state8: #3a79d8;
+    --state9: #00a170;
+    --state10: #8c939d;
+
+    /* Font Size */
+    --font-large: 24px;
+    --font-medium: 18px;
+    --font-primary: 16px;
+    --font-small: 14px;
+    --font-xsmall: 12px;
+
+    /* Font Weight */
+    --font-weight-thin: 100;
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+
+    /* Line Height */
+    --line-height-100: 100%;
+    --line-height-120: 120%;
+    --line-height-140: 140%;
+    --line-height-150: 150%;
+
+    /* Spacing */
+    --spacing-4: 4px;
+    --spacing-6: 6px;
+    --spacing-8: 8px;
+    --spacing-12: 12px;
+    --spacing-16: 16px;
+    --spacing-24: 24px;
+
+    /* Border Radius */
+    --border-radius-4: 4px;
+    --border-radius-8: 8px;
+    --border-radius-16: 16px;
+    --border-radius-24: 24px;
+    --border-radius-full: 100%;
+}
+
+/* =============================================
+   BASE RESET
+   ============================================= */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    font-size: var(--font-primary);
+    font-weight: var(--font-weight-regular);
+    color: var(--gray-900);
+    line-height: var(--line-height-140);
+    background-color: var(--gray-c50);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+/* =============================================
+   COMMON INTERACTION STATES
+   ============================================= */
+
+/* Input states */
+.inputField:focus {
+    outline: none;
+    border-color: var(--primary-500);
+    box-shadow: 0 0 0 3px var(--primary-100);
+}
+
+.inputField:hover:not(:disabled):not(:focus) {
+    border-color: var(--gray-600);
+}
+
+.input.is-error .inputField {
+    border-color: var(--color-error);
+}
+
+.input.is-error .inputMessage {
+    display: block;
+    color: var(--color-error);
+}
+
+.input.is-disabled .inputField {
+    background-color: var(--gray-50);
+    color: var(--gray-600);
+    cursor: default;
+}
+
+.input.is-readonly .inputField {
+    background-color: var(--gray-50);
+    cursor: default;
+}
+
+/* Button states */
+.btn:hover:not(.is-disabled) {
+    opacity: 0.88;
+}
+
+.btn:active:not(.is-disabled) {
+    transform: translateY(1px);
+}
+
+.btn.is-disabled {
+    opacity: 0.4;
+    cursor: default;
+    pointer-events: none;
+}
+
+/* Dropdown states */
+.dropbox:hover {
+    border-color: var(--gray-600);
+}
+
+.dropbox.is-open {
+    border-color: var(--primary-500);
+}
+
+/* SearchBox states */
+.searchInput:focus {
+    outline: none;
+    border-color: var(--primary-500);
+}
+
+/* Table states */
+.tableBody tr:hover {
+    background-color: var(--gray-50);
+}
+
+/* =============================================
+   UTILITY
+   ============================================= */
+.u-mt-4 {
+    margin-top: var(--spacing-4);
+}
+.u-mt-8 {
+    margin-top: var(--spacing-8);
+}
+.u-mt-12 {
+    margin-top: var(--spacing-12);
+}
+.u-mt-16 {
+    margin-top: var(--spacing-16);
+}
+.u-mt-24 {
+    margin-top: var(--spacing-24);
+}
+
+.u-mb-4 {
+    margin-bottom: var(--spacing-4);
+}
+.u-mb-8 {
+    margin-bottom: var(--spacing-8);
+}
+.u-mb-12 {
+    margin-bottom: var(--spacing-12);
+}
+.u-mb-16 {
+    margin-bottom: var(--spacing-16);
+}
+.u-mb-24 {
+    margin-bottom: var(--spacing-24);
+}
+
+.u-hidden {
+    display: none;
+}
+.u-visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
