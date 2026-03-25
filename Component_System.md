@@ -290,6 +290,38 @@
 
 ---
 
+## Datepicker / Timepicker
+
+### 기본 정책
+
+- Datepicker 및 Timepicker는 **Air Datepicker의 CDN(css, js)** 을 사용한다.
+- 기본 locale은 **한국어(ko)** 로 설정한다.
+- 기본 UI는 **input field + icon** 조합으로 구성한다.
+- icon은 input과 함께 하나의 field wrapper 내부에 배치한다.
+- 별도 요청이 없는 한, 커스텀 구현보다 **Air Datepicker 기본 기능을 우선 사용**한다.
+
+### Datepicker
+
+- input 영역 전체를 클릭하면 캘린더가 노출되어야 한다.
+- 기본 표시 형식은 `YYYY.MM.DD` 로 한다.
+- 단일 선택(single)과 기간 선택(range) 모두 지원 가능해야 한다.
+- range 형태를 사용하는 경우, **종료일은 시작일보다 빠를 수 없다.**
+- range 형태를 사용하는 경우, **종료일 input은 시작일 이전 날짜를 선택할 수 없도록 제한**해야 한다.
+- range 형태를 사용하는 경우, **종료일의 최소 선택 가능일(min date)은 시작일과 같거나 이후여야 한다.**
+- 시작일이 선택되지 않은 상태에서는 종료일 선택 로직이 비정상적으로 동작하지 않도록 처리해야 한다.
+- 시작일이 변경되면 종료일의 선택 가능 범위와 유효성도 함께 갱신되어야 한다.
+- 기존에 선택된 종료일이 시작일보다 빠른 값이 되는 경우, 해당 종료일 값은 유지되지 않도록 처리해야 한다.
+
+### Timepicker
+
+- input 영역 전체를 클릭하면 timepicker가 노출되어야 한다.
+- 기본 시간 형식은 `HH:mm` 으로 한다.
+- 시간 선택은 시/분 기준으로 처리한다.
+
+#### Datepicker&Timepicker 공통
+
+- Datepicker와 Timepicker는 기본적으로 사용성과 일관성을 우선하며, input과 icon이 분리된 개별 트리거처럼 동작하지 않고 하나의 field로 동작해야 한다.
+
 ## 한 줄 핵심
 
 👉 모든 컴포넌트는 `block + camelCase element + is-* 상태` 구조로 설계한다.
