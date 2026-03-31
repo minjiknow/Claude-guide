@@ -1,0 +1,223 @@
+/* =============================================
+   SIDE PANEL COMPONENT
+   ============================================= */
+
+/* BACKDROP */
+.sideBackdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 400;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition);
+}
+.sideBackdrop.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* PANEL */
+.sidePanel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 580px;
+    height: 100%;
+    background: var(--color-white);
+    z-index: 401;
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-30);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12);
+}
+.sidePanel.is-open {
+    transform: translateX(0);
+}
+
+/* HEADER */
+.sidePanelHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-38) 0 var(--spacing-8);
+    flex-shrink: 0;
+}
+.sidePanelTitle {
+    font-size: var(--font-large);
+    font-weight: var(--font-weight-semibold);
+    color: var(--gray-900);
+}
+
+/* TAB 오버라이드 */
+.sidePanel .tabList {
+    padding: var(--spacing-16) 0;
+}
+
+.sidePanel .tabBtn {
+    font-size: var(--font-medium);
+}
+
+/* sidePanel 내부 탭 컨텐츠 스크롤 구조 */
+.sidePanel .tabContent {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.sidePanel .tabPanel.is-active {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* BODY */
+.sidePanelBody {
+    padding: 0;
+    font-size: var(--font-small);
+    color: var(--gray-800);
+    line-height: 1.6;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* =============================================
+   PANEL FORM
+   ============================================= */
+.panelForm {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* 스크롤 영역 (탭과 버튼 사이) */
+.panelScrollArea {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+    padding-right: var(--spacing-24);
+}
+
+.panelScrollArea::-webkit-scrollbar {
+    width: 4px;
+}
+
+.panelScrollArea::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.panelScrollArea::-webkit-scrollbar-thumb {
+    background: #ddd;
+    border-radius: 10px;
+}
+
+/* SECTION */
+.panelSection {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+}
+
+.panelSectionTitle {
+    font-size: var(--font-primary);
+    font-weight: var(--font-weight-semibold);
+    color: var(--gray-900);
+    padding-top: var(--spacing-16);
+    padding-bottom: var(--spacing-8);
+    border-bottom: 1px solid var(--gray-900);
+}
+
+.panelRequired {
+    color: var(--color-error);
+}
+
+.panelSection .filterRow {
+    align-items: flex-end;
+}
+
+.panelSection .filterField {
+    gap: var(--spacing-4);
+}
+
+/* TEXTAREA */
+.panelTextarea {
+    width: 100%;
+    min-height: 100px;
+    padding: var(--spacing-8);
+    border: 1px solid var(--gray-300);
+    border-radius: var(--border-radius-4);
+    font-size: var(--font-small);
+    font-family: inherit;
+    color: var(--gray-900);
+    background: var(--color-white);
+    outline: none;
+    resize: vertical;
+    transition: border-color var(--transition);
+    line-height: 1.5;
+}
+
+.panelTextarea:focus {
+    border-color: var(--secondary-500);
+    box-shadow: 0 0 0 2px var(--secondary-100);
+}
+
+.panelCharCount {
+    text-align: right;
+    font-size: var(--font-xsmall);
+    color: var(--gray-500);
+    margin-top: var(--spacing-4);
+}
+
+.panelSection .filterRow > .btn {
+    flex-shrink: 0;
+    align-self: flex-end;
+}
+
+.panelEmptyText {
+    padding: var(--spacing-16) 0;
+    color: var(--gray-500);
+}
+
+/* FOOTER */
+.panelFooter {
+    flex-shrink: 0;
+    padding: var(--spacing-16) var(--spacing-24) 0 0;
+}
+
+.panelFooter .btn {
+    font-size: var(--font-medium);
+    height: 48px;
+}
+
+.panelFooterBtn {
+    background-color: var(--color-mainbrand);
+    color: var(--color-white);
+    border-color: var(--color-mainbrand);
+}
+
+.panelFooterBtn:hover,
+.panelFooterBtn:active {
+    background-color: var(--color-mainbrand);
+    border-color: var(--color-mainbrand);
+    color: var(--color-white);
+}
+
+@media (max-width: 640px) {
+    .sidePanel {
+        width: 100%;
+    }
+}

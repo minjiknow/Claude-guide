@@ -9,6 +9,7 @@
 		rel="stylesheet">
 	<link rel="stylesheet" href="../../assets/css/common.css" />
 	<link rel="stylesheet" href="../button/style.css" />
+	<link rel="stylesheet" href="../dropdown/style.css" />
 	<link rel="stylesheet" href="style.css" />
 </head>
 
@@ -18,21 +19,24 @@
 		<section class="l-sectionBlock">
 			<h2>Input</h2>
 			<div class="demoCol">
-				<input class="filterInput" type="text" placeholder="기본 입력" />
-				<input class="filterInput" type="text" placeholder="포커스 상태 확인" />
-				<input class="filterInput" type="text" value="읽기 전용" readonly />
-				<input class="filterInput" type="text" placeholder="비활성" disabled />
+				<input class="filterInput w-full" type="text" placeholder="기본 입력" />
+				<input class="filterInput w-full" type="text" placeholder="포커스 상태 확인" />
+				<input class="filterInput w-full" type="text" value="읽기 전용" readonly />
+				<input class="filterInput w-full" type="text" placeholder="비활성" disabled />
 			</div>
 		</section>
 
 		<section class="l-sectionBlock">
-			<h2>Select</h2>
+			<h2>Select (Dropdown)</h2>
 			<div class="demoRow demoRow-sm">
-				<select class="filterSelect">
-					<option>전체</option>
-					<option>항목 A</option>
-					<option>항목 B</option>
-				</select>
+				<div class="dropbox w-full" data-component="dropbox" aria-label="항목 선택">
+					<p class="selected-text">전체</p>
+					<ul class="dropbox-option">
+						<li data-value=""><p class="option-text">전체</p></li>
+						<li data-value="A"><p class="option-text">항목 A</p></li>
+						<li data-value="B"><p class="option-text">항목 B</p></li>
+					</ul>
+				</div>
 			</div>
 		</section>
 
@@ -41,20 +45,17 @@
 			<div class="demoRow">
 				<div class="inputCombo">
 					<input class="filterInput" type="text" placeholder="검색어 입력" />
-					<button class="btn is-ghost is-sm is-iconOnly filterSearchBtn" type="button" aria-label="검색">
-						<span class="btnIcon">
-							<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-								stroke-width="2">
-								<circle cx="11" cy="11" r="8" />
-								<line x1="21" y1="21" x2="16.65" y2="16.65" />
-							</svg>
-						</span>
+					<button class="btn is-primary h-sm filterSearchBtn" type="button">
+						<span class="btnText">검색</span>
 					</button>
 				</div>
 			</div>
 		</section>
 
 	</main>
+	<script src="../../assets/jquery/jquery-4.0.0.min.js"></script>
+	<script src="../dropdown/script.js"></script>
+	<script src="script.js"></script>
 </body>
 
 </html>

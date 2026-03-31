@@ -123,11 +123,96 @@ Define all tokens as CSS custom properties in `:root`.
 
 ---
 
+## ☑️ Checkbox
+
+Checkbox는 상태에 따라 아래 에셋을 사용한다.
+
+- 기본(미선택): `unchkbx.svg`
+- 선택됨: `chkbx.svg`
+- 비활성화(미선택): `dis_unchkbx.svg`
+- 비활성화(선택됨): `dis_chkbx.svg`
+
+Checkbox 에셋은 파일명 자체보다 **실제 UI 상태 기준**으로 정확히 매핑해야 한다.
+
+---
+
+## Form 상태 색상 원칙
+
+- form 계열 컴포넌트의 상태 색상은 root 기준 semantic token을 따른다.
+- focus 상태의 border 및 active indicator는 `var(--secondary-500)`를 사용한다.
+- error 상태의 border, text, helper message는 `var(--color-error)`를 사용한다.
+- disabled와 readonly는 모두 비활성 계열의 시각 규칙을 따르되, 필요 시 상호작용 가능 여부가 구분되도록 표현한다.
+- disabled, readonly 상태의 기본 background는 `var(--gray-50)`, border는 `var(--gray-300)`을 사용한다.
+- disabled, readonly, default 상태 역시 컴포넌트 개별 정의가 아니라 root 기준 토큰으로 관리한다.
+- input, dropdown, searchbox는 같은 상태에 대해 동일한 색상 의미 체계를 가져야 한다.
+
+### 공통 상태 정의 (Input / Dropdown / Searchbox)
+
+| 상태           | border-color                                                   | background      | text color   | box-shadow                       | class / pseudo                |
+| -------------- | -------------------------------------------------------------- | --------------- | ------------ | -------------------------------- | ----------------------------- |
+| default        | `--gray-300`                                                   | `--color-white` | `--gray-900` | none                             | —                             |
+| hover          | `--secondary-500` (input/search) / `--secondary-500` (dropbox) | —               | —            | —                                | `:hover`                      |
+| focus / active | `--secondary-500`                                              | —               | —            | `0 0 0 2px var(--secondary-100)` | `:focus` / `.active`          |
+| error          | `--color-error`                                                | —               | —            | focus 시 `rgba(226,73,73,0.12)`  | `.is-error`                   |
+| success        | `--color-success`                                              | —               | —            | —                                | `.is-success`                 |
+| warning        | `--color-warning`                                              | —               | —            | —                                | `.is-warning`                 |
+| info           | `--color-info`                                                 | —               | —            | —                                | `.is-info`                    |
+| disabled       | `--gray-300`                                                   | `--gray-50`     | `--gray-500` | none                             | `:disabled` / `.is-disabled`  |
+| readonly       | `--gray-300`                                                   | `--gray-50`     | `--gray-800` | none (hover/focus 효과 없음)     | `[readonly]` / `.is-readonly` |
+
+---
+
+## 📅 Datepicker / Timepicker
+
+날짜 및 시간 입력 컴포넌트의 아이콘은 아래 에셋을 사용한다.
+
+- datepicker icon: `calico.svg`
+- timepicker icon: `timeico.svg`
+
+각 아이콘은 해당 입력 필드의 우측 보조 아이콘 영역에 배치한다.
+
+---
+
+## 🔽 Select / Dropdown
+
+선택형 UI에서는 native HTML `<select>` / `<option>` 태그를 사용하지 않는다.
+
+모든 선택 UI는 반드시 커스텀 dropdown 컴포넌트로 구현한다.
+
+### Rules
+
+- 금지: `<select>`, `<option>`
+- 필수: custom dropdown component
+- 리스트 항목은 `button`, `label`, `input[type="checkbox"]`, `ul`, `li` 등으로 구성
+- 단일 선택 / 멀티 선택 모두 동일하게 custom dropdown 방식 사용
+- 화살표 아이콘은 `arrow_down.svg` 사용
+- 기존 dropdown 스타일(`dropdown`, `dropdown-toggle`, `dropdown-menu`, `dropdown-option` 등)을 그대로 재사용하거나 동일하게 맞춘다
+- `is-*` 클래스는 상태 modifier 전용으로 사용하며, 크기 지정 용도로 사용하지 않는다.
+- 고정 높이 클래스는 `h-sm`, `h-md`, `h-lg`처럼 `h-*` prefix로 구분한다.
+- 고정 너비 클래스는 `w-sm`, `w-md`, `w-lg`처럼 `w-*` prefix로 구분한다.
+- 가로·세로를 함께 고정해야 할 경우에도 각각 `w-*`, `h-*` 클래스를 조합해서 사용한다.
+- 버튼과 인풋의 기본 스타일에는 고정 width, height를 포함하지 않는다.
+- 지정된 높이는 `h-*` 클래스가 적용된 경우에만 사용한다.
+- 지정된 너비는 `w-*` 클래스가 적용된 경우에만 사용한다.
+    ```html
+    <button class="btn h-md w-full">확인</button>
+    <div class="dropdown-toggle h-md w-lg"></div>
+    <input class="searchbox h-sm w-full" />
+    ```
+
+### Output requirement
+
+- 최종 결과물에 `<select` 또는 `<option` 문자열이 포함되면 안 된다
+- 페이지네이션, 정렬, 필터, 폼 선택 UI, 예시 코드까지 모두 동일하게 적용한다
+
+---
+
 ## Rules
 
 - 본 파일에 정의된 디자인 토큰을 기준으로 사용
 - color, font-size, font-weight, spacing, border-radius, shadow 값은 직접 입력하지 않음
 - input, select, textarea 등의 기본 상태 스타일(:focus, :hover, is-error, is-success, is-warning, is-info)은 /assets/css/common.css에 작성한다.
+- 상태값에 따라 사용하는 색상은 palette token을 직접 하드코딩하지 않고, 가능한 semantic token을 통해 참조한다.
 - 가능한 기존 토큰을 재사용
 - 필요한 토큰이 없을 경우, :root에 정의 후 사용
 - 의미가 겹치거나 중복되는 토큰은 생성하지 않음

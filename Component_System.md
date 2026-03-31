@@ -185,9 +185,28 @@
 
 ---
 
+## 🔎 Search Input
+
+검색 영역은 기본적으로 **input + search button** 구조를 사용한다.
+
+- 검색 버튼이 텍스트 없이 아이콘만 있는 경우, 버튼은 input 내부에 배치할 수 있어야 한다.
+- 이 경우 검색 버튼은 input의 trailing area 내부 요소로 처리한다.
+- input 외부 버튼 형태와 input 내부 아이콘 버튼 형태를 모두 지원할 수 있어야 한다.
+
+---
+
+## 🔽 Select / Dropdown
+
+열림/닫힘 상태에 따른 기존 인터랙션 규칙은 유지한다.
+열림 상태에서는 화살표 아이콘이 rotate 될 수 있다.
+
+---
+
 ## SearchBox
 
 ### 구조
+
+- input + button 조합
 
 ```html
 <div class="search">
@@ -196,19 +215,33 @@
 </div>
 ```
 
+- input 안에 버튼 조합
+
+```html
+<div class="search">
+    <input class="searchInput" id="filterText1" type="text" placeholder="가나다" autocomplete="off" />
+    <button class="searchButton filterSearchBtn" type="button" title="검색" aria-label="검색">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5" />
+            <path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+    </button>
+</div>
+```
+
 ### 규칙
 
+- 두 가지의 SearchBox 조합이 필요하다
 - input + button 조합
+- input 안에 버튼(검색아이콘만 있는 경우) 조합
 - 버튼은 항상 존재해야 한다
-
----
 
 ## Dropdown
 
 ### 규칙
 
 - Dropdown은 custom select 컴포넌트로 사용한다.
-- trigger 영역과 option list를 포함해야 한다.
+- trigger 영역과 optionlist를 포함해야 한다.
 - JS 초기화 대상은 `data-component="dropbox"`로 식별한다.
 - 선택된 값은 `.selected-text`에 표시한다.
 - 옵션 리스트는 기본적으로 닫힌 상태이며, 열릴 때 `is-open`을 사용한다.
@@ -235,6 +268,21 @@
 - `is-open`
 - `is-selected`
 - `is-disabled`
+
+## Dropdown open direction
+
+드롭다운은 기본적으로 아래 방향으로 열린다.
+
+단, dropdown menu가 화면 하단을 넘어가거나 잘려서 전체 항목이 보이지 않는 경우에만
+자동으로 위 방향으로 열리도록 처리한다.
+
+### Rules
+
+- 기본 동작: open downward
+- 예외: menu가 viewport 밖으로 잘리면 open upward
+- 화면에 충분한 공간이 있으면 항상 아래로 연다
+- 페이지 하단에 위치했다는 이유만으로 무조건 위로 열지 않는다
+- pagination 영역의 dropdown도 동일한 규칙을 따른다
 
 ### 예외 규칙
 

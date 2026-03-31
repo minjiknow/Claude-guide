@@ -1,0 +1,49 @@
+/* =============================================
+   TAB COMPONENT
+   ============================================= */
+.tabWrap {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+}
+
+.tabList {
+    display: flex;
+    flex-shrink: 0;
+    padding: 0 var(--spacing-24);
+    gap: var(--spacing-4);
+}
+
+.tabBtn {
+    padding: var(--spacing-8) var(--spacing-12);
+    border: none;
+    border-bottom: 2px solid transparent;
+    background: none;
+    cursor: pointer;
+    font-size: var(--font-small);
+    font-weight: var(--font-weight-medium);
+    color: var(--gray-500);
+    transition: color var(--transition), border-color var(--transition);
+    margin-bottom: -1px;
+    white-space: nowrap;
+}
+
+.tabBtn.is-active,
+.tabBtn[aria-selected="true"] {
+    color: var(--gray-900);
+    border-bottom-color: var(--gray-900);
+}
+
+.tabContent {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.tabPanel {
+    display: none;
+}
+
+.tabPanel.is-active {
+    display: block;
+}

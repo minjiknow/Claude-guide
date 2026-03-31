@@ -15,128 +15,158 @@
 }
 
 .dropbox {
-  position: relative;
-  width: 100%;
-  min-width: 140px;
-  height: 30px;
-  padding: 0 var(--spacing-8);
-  border: 1px solid var(--gray-400);
-  border-radius: var(--border-radius-4);
-  background: var(--color-white);
   cursor: pointer;
-  transition: border-color var(--transition), box-shadow var(--transition);
-}
-
-.selected-text {
+  position: relative;
+  flex: 1 1 0;
+  padding: var(--spacing-6) var(--spacing-12);
+  border: 1px solid;
+  border-color: var(--gray-300);
+  border-radius: var(--border-radius-4);
+  box-sizing: border-box;
+  background-color: var(--color-white);
+  height: auto;
+  transition: border-color 0.3s ease-in-out;
   display: flex;
   align-items: center;
-  width: 100%;
-  height: 100%;
-  padding-right: 18px;
-  background-color: transparent;
-  font-size: var(--font-xsmall);
-  color: var(--gray-900);
-  line-height: 1;
 }
 
 .dropbox::after {
-  content: '';
   position: absolute;
-  right: 8px;
+  content: "";
   top: 50%;
-  width: 8px;
-  height: 8px;
-  border-right: 1.5px solid var(--gray-600);
-  border-bottom: 1.5px solid var(--gray-600);
-  transform: translateY(-60%) rotate(45deg);
-  transition: transform var(--transition);
-  pointer-events: none;
+  right: 12px;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+  background-image: url("../../assets/icons/arrow_down.svg");
+  background-size: 24px auto;
+  background-position: center right;
+  background-repeat: no-repeat;
+  width: 24px;
+  height: 24px;
+}
+.dropbox-small::after {
+  right: 4px;
+  width: 20px;
+  height: 20px;
+  background-size: 20px auto;
+}
+
+.selected-text {
+  color: var(--gray-600);
+  font-size: var(--font-primary);
+  font-weight: var(--font-weight-regular);
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  min-width: 0;
+  flex: 1;
 }
 
 .dropbox.active {
-  border-color: var(--primary-500);
-  box-shadow: 0 0 0 2px rgba(51, 156, 213, 0.12);
+  border-color: var(--secondary-500);
 }
-
 .dropbox.active::after {
-  transform: translateY(-40%) rotate(-135deg);
+  transform: translateY(-50%) rotate(180deg);
 }
-
+.dropbox.has-value .selected-text,
+.dropbox.active .selected-text {
+  color: var(--gray-800);
+}
 .dropbox-option {
-  display: none;
-  position: absolute;
-  top: calc(100% + 3px);
-  left: -1px;
-  width: 100%;
-  min-width: calc(100% + 2px);
   background-color: var(--color-white);
-  border: 1px solid var(--gray-400);
+  border: 1px solid var(--gray-800);
   border-radius: var(--border-radius-4);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  z-index: 100;
-  overflow: hidden;
+  position: absolute;
+  top: 110%;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  display: none;
 }
-
 .dropbox-option.active {
   display: block;
+  border-color: var(--secondary-500);
 }
 
+/* 뷰포트 하단에 잘릴 때 위로 열기 */
+.dropbox.is-up .dropbox-option {
+  top: auto;
+  bottom: 110%;
+}
 .dropbox-option li {
+  padding: var(--spacing-6) var(--spacing-12);
   cursor: pointer;
-  padding: 0 var(--spacing-8);
-  transition: background-color var(--transition);
+  transition: background-color 0.3s ease-in-out;
 }
-
 .dropbox-option li:hover,
+.dropbox-option li.hover,
 .dropbox-option li.selected {
-  background-color: var(--gray-50);
+  background-color: var(--primary-100);
 }
-
-.dropbox-option li.selected .option-text {
+.dropbox-option li.selected .option-text,
+.dropbox-option li.hover .dropbox-option li.selected .option-text {
   color: var(--secondary-500);
-  font-weight: var(--font-weight-medium);
 }
-
+.dropbox-option li:first-child:hover,
+.dropbox-option li:first-child.hover {
+  border-radius: var(--border-radius-4) var(--border-radius-4) 0 0;
+}
+.dropbox-option li:last-child:hover,
+.dropbox-option li:last-child.hover {
+  border-radius: 0 0 var(--border-radius-4) var(--border-radius-4);
+}
 .option-text {
-  padding: 7px 0;
-  font-size: var(--font-xsmall);
-  color: var(--gray-900);
-  line-height: var(--line-height-140);
+  font-size: var(--font-small);
+  color: var(--gray-800);
+  font-weight: var(--font-weight-regular);
+  text-align: left;
 }
 
-.option-inner {
+/* ── 멀티 선택 드롭박스 체크마크 ── */
+.dropbox-option li .option-inner {
   display: flex;
   align-items: center;
   gap: var(--spacing-8);
 }
 
-.optionMark {
-  width: 14px;
-  height: 14px;
-  border: 1.5px solid var(--gray-400);
-  border-radius: 3px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.dropbox-option li .optionMark {
   flex-shrink: 0;
-  position: relative;
-  background: var(--color-white);
+  width: 20px;
+  height: 20px;
+  background-image: url("../../assets/icons/unchkbx.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: background-image 0.2s;
 }
 
 .dropbox-option li.selected .optionMark {
-  border-color: var(--primary-500);
-  background: var(--primary-500);
+  background-image: url("../../assets/icons/chkbx.svg");
 }
 
-.dropbox-option li.selected .optionMark::after {
-  content: '';
-  position: absolute;
-  left: 4px;
-  top: 1px;
-  width: 4px;
-  height: 8px;
-  border: 2px solid var(--color-white);
-  border-top: none;
-  border-left: none;
-  transform: rotate(45deg);
+/* ── Dropbox states ── */
+.dropbox.is-error {
+  border-color: var(--color-error);
+}
+
+.dropbox.is-disabled {
+  background-color: var(--gray-50);
+  border-color: var(--gray-300);
+  color: var(--gray-500);
+  cursor: default;
+  pointer-events: none;
+}
+.dropbox.is-disabled .selected-text {
+  color: var(--gray-500);
+}
+
+.dropbox.is-readonly {
+  background-color: var(--gray-50);
+  border-color: var(--gray-300);
+  cursor: default;
+  pointer-events: none;
+}
+.dropbox.is-readonly .selected-text {
+  color: var(--gray-800);
 }

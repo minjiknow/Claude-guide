@@ -1,6 +1,6 @@
 /* ===== SEARCH FILTER COMPONENT ===== */
 
-(function () {
+(function ($) {
   'use strict';
 
   var koLocale = {
@@ -29,30 +29,27 @@
     return { from: from, to: today };
   }
 
-  function setDefaultDateValues(root) {
-    var dateFrom = root.querySelector('#dateFrom');
-    var dateTo = root.querySelector('#dateTo');
-    if (!dateFrom || !dateTo) return;
-
+  function setDefaultDateValues($root) {
     var dates = defaultDates();
-    dateFrom.value = fmtDate(dates.from);
-    dateTo.value = fmtDate(dates.to);
+    $root.find('#dateFrom').val(fmtDate(dates.from));
+    $root.find('#dateTo').val(fmtDate(dates.to));
   }
 
-  function initDatepickers(root) {
-    var dateFrom = root.querySelector('#dateFrom');
-    var dateTo = root.querySelector('#dateTo');
-    if (!dateFrom || !dateTo || dateFrom.dataset.bound === 'true') return;
+  function initDatepickers($root) {
+    var $dateFrom = $root.find('#dateFrom');
+    var $dateTo = $root.find('#dateTo');
+    if (!$dateFrom.length || !$dateTo.length || $dateFrom.data('bound')) return;
 
-    dateFrom.dataset.bound = 'true';
-    dateTo.dataset.bound = 'true';
+    $dateFrom.data('bound', true);
+    $dateTo.data('bound', true);
 
-    setDefaultDateValues(root);
+    setDefaultDateValues($root);
 
     if (typeof AirDatepicker === 'undefined') return;
 
     var dates = defaultDates();
-    var fromPicker = new AirDatepicker(dateFrom, {
+
+    var fromPicker = new AirDatepicker($dateFrom[0], {
       locale: koLocale,
       dateFormat: 'yyyy-MM-dd',
       startDate: dates.from,
@@ -63,7 +60,7 @@
       ]
     });
 
-    var toPicker = new AirDatepicker(dateTo, {
+    var toPicker = new AirDatepicker($dateTo[0], {
       locale: koLocale,
       dateFormat: 'yyyy-MM-dd',
       startDate: dates.to,
@@ -75,347 +72,282 @@
       ]
     });
 
-    dateFrom._airPicker = fromPicker;
-    dateTo._airPicker = toPicker;
+    $dateFrom.data('airPicker', fromPicker);
+    $dateTo.data('airPicker', toPicker);
 
-    var fromIcon = dateFrom.closest('.datepickerWrap');
-    if (fromIcon) {
-      var triggerFrom = fromIcon.querySelector('.datepickerIcon');
-      if (triggerFrom) triggerFrom.addEventListener('click', function () { fromPicker.show(); });
-    }
-    dateFrom.addEventListener('click', function () { fromPicker.show(); });
-    dateFrom.addEventListener('focus', function () { fromPicker.show(); });
+    // 키보드 직접 입력 차단 (readonly 대신 JS로 처리)
+    $dateFrom.add($dateTo).on('keydown', function (e) { e.preventDefault(); });
 
-    var toIcon = dateTo.closest('.datepickerWrap');
-    if (toIcon) {
-      var triggerTo = toIcon.querySelector('.datepickerIcon');
-      if (triggerTo) triggerTo.addEventListener('click', function () { toPicker.show(); });
-    }
-    dateTo.addEventListener('click', function () { toPicker.show(); });
-    dateTo.addEventListener('focus', function () { toPicker.show(); });
+    $dateFrom.closest('.datepickerWrap').find('.datepickerIcon').on('click', function () { fromPicker.show(); });
+    $dateFrom.on('click focus', function () { fromPicker.show(); });
+
+    $dateTo.closest('.datepickerWrap').find('.datepickerIcon').on('click', function () { toPicker.show(); });
+    $dateTo.on('click focus', function () { toPicker.show(); });
   }
 
-  function adjustTimeInput(input, delta) {
-    var max = input.id.endsWith('H') ? 23 : 59;
-    var value = parseInt(input.value, 10);
+  function adjustTimeInput($input, delta) {
+    var max = $input.attr('id').slice(-1) === 'H' ? 23 : 59;
+    var value = parseInt($input.val(), 10);
     if (isNaN(value)) value = 0;
     value += delta;
     if (value < 0) value = max;
     if (value > max) value = 0;
-    input.value = String(value).padStart(2, '0');
+    $input.val(String(value).padStart(2, '0'));
   }
 
-  function clampTimeInput(input) {
-    var max = input.id.endsWith('H') ? 23 : 59;
-    var value = parseInt(input.value, 10);
+  function clampTimeInput($input) {
+    var max = $input.attr('id').slice(-1) === 'H' ? 23 : 59;
+    var value = parseInt($input.val(), 10);
     if (isNaN(value)) value = 0;
     value = Math.max(0, Math.min(max, value));
-    input.value = String(value).padStart(2, '0');
+    $input.val(String(value).padStart(2, '0'));
   }
 
-  function initTimepickers(root) {
-    root.querySelectorAll('.timepickerWrap').forEach(function (wrap) {
-      if (wrap.dataset.bound === 'true') return;
-      wrap.dataset.bound = 'true';
+  function initTimepickers($root) {
+    $root.find('.timepickerWrap').each(function () {
+      var $wrap = $(this);
+      if ($wrap.data('bound')) return;
+      $wrap.data('bound', true);
 
-      var displayInput = wrap.querySelector('.timeInput');
-      var panel = wrap.querySelector('.timepickerPanel');
-      if (!displayInput || !panel) return;
+      var $displayInput = $wrap.find('.timeInput');
+      var $panel = $wrap.find('.timepickerPanel');
+      if (!$displayInput.length || !$panel.length) return;
 
       function updateDisplay() {
-        var h = wrap.querySelector('[id$="H"]');
-        var m = wrap.querySelector('[id$="M"]');
-        if (h && m) displayInput.value = h.value.padStart(2, '0') + ':' + m.value.padStart(2, '0');
+        var $h = $wrap.find('[id$="H"]');
+        var $m = $wrap.find('[id$="M"]');
+        if ($h.length && $m.length) {
+          $displayInput.val($h.val().padStart(2, '0') + ':' + $m.val().padStart(2, '0'));
+        }
       }
 
       function togglePanel(e) {
         e.stopPropagation();
-        var isOpen = wrap.classList.contains('is-open');
-        root.querySelectorAll('.timepickerWrap.is-open').forEach(function (el) {
-          el.classList.remove('is-open');
-        });
-        if (!isOpen) wrap.classList.add('is-open');
+        var isOpen = $wrap.hasClass('is-open');
+        $root.find('.timepickerWrap.is-open').removeClass('is-open');
+        if (!isOpen) $wrap.addClass('is-open');
       }
 
-      displayInput.addEventListener('click', togglePanel);
-      var icon = wrap.querySelector('.timepickerIcon');
-      if (icon) icon.addEventListener('click', togglePanel);
+      $displayInput.on('click', togglePanel);
+      $wrap.find('.timepickerIcon').on('click', togglePanel);
 
-      panel.querySelectorAll('.tpickerBtn').forEach(function (btn) {
-        btn.addEventListener('click', function (e) {
-          e.stopPropagation();
-          var target = wrap.querySelector('#' + btn.dataset.target);
-          if (!target) return;
-          adjustTimeInput(target, btn.dataset.action === 'up' ? 1 : -1);
-          updateDisplay();
-        });
+      $panel.find('.tpickerBtn').on('click', function (e) {
+        e.stopPropagation();
+        var $target = $wrap.find('#' + $(this).attr('data-target'));
+        if (!$target.length) return;
+        adjustTimeInput($target, $(this).attr('data-action') === 'up' ? 1 : -1);
+        updateDisplay();
       });
 
-      panel.querySelectorAll('.tpickerVal').forEach(function (input) {
-        input.addEventListener('change', function () {
-          clampTimeInput(input);
-          updateDisplay();
-        });
+      $panel.find('.tpickerVal').on('change', function () {
+        clampTimeInput($(this));
+        updateDisplay();
       });
 
       updateDisplay();
     });
 
-    document.addEventListener('click', function () {
-      root.querySelectorAll('.timepickerWrap.is-open').forEach(function (wrap) {
-        wrap.classList.remove('is-open');
-      });
+    $(document).on('click', function () {
+      $root.find('.timepickerWrap.is-open').removeClass('is-open');
     });
   }
 
-  function resetDropboxes(root) {
-    root.querySelectorAll('[data-component="dropbox"]').forEach(function (el) {
-      if (el._dropboxInstance) el._dropboxInstance.reset();
+  function resetDropboxes($root) {
+    $root.find('[data-component="dropbox"]').each(function () {
+      var inst = $.data(this, 'dropboxInstance');
+      if (inst) inst.reset();
     });
   }
 
   function bindFallbackDropbox(el) {
-    if (el.dataset.dropboxFallbackBound === 'true') return;
-    el.dataset.dropboxFallbackBound = 'true';
+    var $el = $(el);
+    if ($el.data('dropboxFallbackBound')) return;
+    $el.data('dropboxFallbackBound', true);
 
-    var isMulti = el.dataset.multi === 'true';
-    var trigger = el.querySelector('.selected-text');
-    var optionList = el.querySelector('.dropbox-option');
-    var items = Array.prototype.slice.call(el.querySelectorAll('.dropbox-option li'));
-    var placeholder = trigger ? trigger.textContent.trim() : '선택';
+    var isMulti = $el.attr('data-multi') === 'true';
+    var $trigger = $el.find('.selected-text');
+    var $optionList = $el.find('.dropbox-option');
+    var $items = $el.find('.dropbox-option li');
+    var placeholder = $trigger.text().trim() || '선택';
     var selected = [];
 
     function open() {
-      el.classList.add('active');
-      if (optionList) optionList.classList.add('active');
-      var combo = el.closest('.inputCombo');
-      if (combo) combo.classList.add('is-dropbox-open');
+      $el.removeClass('is-up');
+      $el.addClass('active');
+      $optionList.addClass('active');
+      $el.closest('.inputCombo').addClass('is-dropbox-open');
+
+      var rect = $optionList[0].getBoundingClientRect();
+      if (rect.bottom > window.innerHeight) {
+        $el.addClass('is-up');
+      }
     }
 
     function close() {
-      el.classList.remove('active');
-      if (optionList) optionList.classList.remove('active');
-      var combo = el.closest('.inputCombo');
-      if (combo) combo.classList.remove('is-dropbox-open');
+      $el.removeClass('active is-up');
+      $optionList.removeClass('active');
+      $el.closest('.inputCombo').removeClass('is-dropbox-open');
     }
 
     function updateDisplay() {
-      if (!trigger) return;
       if (!selected.length) {
-        trigger.textContent = placeholder;
-        el.classList.remove('has-value');
-        return;
+        $trigger.text(placeholder);
+        $el.removeClass('has-value');
+      } else {
+        $trigger.text($.map(selected, function (item) { return item.text; }).join(', '));
+        $el.addClass('has-value');
       }
-
-      trigger.textContent = selected.map(function (item) { return item.text; }).join(', ');
-      el.classList.add('has-value');
     }
 
-    function getItemData(item) {
-      var textNode = item.querySelector('.option-text');
-      var text = textNode ? textNode.textContent.trim() : '';
-      var value = item.dataset.value !== undefined ? item.dataset.value : text;
-      return { value: value, text: text };
-    }
-
-    el.addEventListener('click', function (event) {
-      event.stopPropagation();
-      var isOpen = el.classList.contains('active');
-      root.querySelectorAll('[data-component="dropbox"].active').forEach(function (activeEl) {
-        activeEl.classList.remove('active');
-        var activeOptions = activeEl.querySelector('.dropbox-option');
-        if (activeOptions) activeOptions.classList.remove('active');
-        var combo = activeEl.closest('.inputCombo');
-        if (combo) combo.classList.remove('is-dropbox-open');
+    $el.on('click', function (e) {
+      e.stopPropagation();
+      if ($el.hasClass('is-disabled')) return;
+      var isOpen = $el.hasClass('active');
+      $el.closest('.searchCard').find('[data-component="dropbox"].active').each(function () {
+        $(this).removeClass('active');
+        $(this).find('.dropbox-option').removeClass('active');
+        $(this).closest('.inputCombo').removeClass('is-dropbox-open');
       });
       if (!isOpen) open();
     });
 
-    items.forEach(function (item) {
-      item.addEventListener('click', function (event) {
-        event.stopPropagation();
-        var data = getItemData(item);
+    $items.on('click', function (e) {
+      e.stopPropagation();
+      var $item = $(this);
+      var text = $item.find('.option-text').text().trim();
+      var value = $item.attr('data-value') !== undefined ? $item.attr('data-value') : text;
+      var data = { value: value, text: text };
 
-        if (isMulti) {
-          var index = selected.findIndex(function (entry) {
-            return entry.value === data.value;
-          });
-
-          if (index > -1) {
-            selected.splice(index, 1);
-            item.classList.remove('selected');
-          } else {
-            selected.push(data);
-            item.classList.add('selected');
-          }
-
-          updateDisplay();
-          return;
+      if (isMulti) {
+        var index = -1;
+        $.each(selected, function (i, entry) {
+          if (entry.value === data.value) { index = i; return false; }
+        });
+        if (index > -1) {
+          selected.splice(index, 1);
+          $item.removeClass('selected');
+        } else {
+          selected.push(data);
+          $item.addClass('selected');
         }
-
-        items.forEach(function (entry) { entry.classList.remove('selected'); });
-        item.classList.add('selected');
-        selected = [data];
         updateDisplay();
-        close();
-      });
-    });
-
-    el._dropboxInstance = {
-      reset: function () {
-        selected = [];
-        items.forEach(function (item) { item.classList.remove('selected'); });
-        updateDisplay();
-        close();
-      }
-    };
-  }
-
-  function ensureDropboxes(root) {
-    root.querySelectorAll('[data-component="dropbox"]').forEach(function (el) {
-      if (el._dropboxInstance) return;
-
-      if (window.Dropbox) {
-        el._dropboxInstance = new window.Dropbox(el);
         return;
       }
 
-      bindFallbackDropbox(el);
+      $items.removeClass('selected');
+      $item.addClass('selected');
+      selected = [data];
+      updateDisplay();
+      close();
     });
 
-    if (!document.body.dataset.searchFilterDropboxFallbackBound) {
-      document.body.dataset.searchFilterDropboxFallbackBound = 'true';
-      document.addEventListener('click', function () {
-        document.querySelectorAll('[data-component="dropbox"].active').forEach(function (el) {
-          el.classList.remove('active');
-          var optionList = el.querySelector('.dropbox-option');
-          if (optionList) optionList.classList.remove('active');
-          var combo = el.closest('.inputCombo');
-          if (combo) combo.classList.remove('is-dropbox-open');
+    $.data(el, 'dropboxInstance', {
+      reset: function () {
+        selected = [];
+        $items.removeClass('selected');
+        updateDisplay();
+        close();
+      }
+    });
+  }
+
+  function ensureDropboxes($root) {
+    $root.find('[data-component="dropbox"]').each(function () {
+      if ($.data(this, 'dropboxInstance')) return;
+
+      if (window.Dropbox) {
+        $.data(this, 'dropboxInstance', new window.Dropbox(this));
+        return;
+      }
+
+      bindFallbackDropbox(this);
+    });
+
+    if (!$('body').data('searchFilterDropboxFallbackBound')) {
+      $('body').data('searchFilterDropboxFallbackBound', true);
+      $(document).on('click', function () {
+        $('[data-component="dropbox"].active').each(function () {
+          $(this).removeClass('active');
+          $(this).find('.dropbox-option').removeClass('active');
+          $(this).closest('.inputCombo').removeClass('is-dropbox-open');
         });
       });
     }
   }
 
-  function collectFilters(root) {
-    var filterText1 = root.querySelector('#filterText1');
-    var filterText2 = root.querySelector('#filterText2');
-
+  function collectFilters($root) {
     return {
-      agent: filterText1 ? filterText1.value.trim() : '',
-      keyword: filterText2 ? filterText2.value.trim() : ''
+      agent: $root.find('#filterText1').val().trim(),
+      keyword: $root.find('#filterText2').val().trim()
     };
   }
 
-  function dispatchSearch(root) {
-    document.dispatchEvent(new CustomEvent('search-filter:submit', {
-      detail: collectFilters(root)
-    }));
+  function dispatchSearch($root) {
+    $(document).trigger('search-filter:submit', [collectFilters($root)]);
   }
 
-  function resetFilter(root, silent) {
-    var filterText1 = root.querySelector('#filterText1');
-    var filterText2 = root.querySelector('#filterText2');
-    var timeFromVal = root.querySelector('#timeFromVal');
-    var timeToVal = root.querySelector('#timeToVal');
-    var timeFromH = root.querySelector('#timeFromH');
-    var timeFromM = root.querySelector('#timeFromM');
-    var timeToH = root.querySelector('#timeToH');
-    var timeToM = root.querySelector('#timeToM');
+  function resetFilter($root, silent) {
+    $root.find('#filterText1').val('');
+    $root.find('#filterText2').val('');
 
-    if (filterText1) filterText1.value = '';
-    if (filterText2) filterText2.value = '';
-    if (timeFromH) timeFromH.value = '00';
-    if (timeFromM) timeFromM.value = '00';
-    if (timeToH) timeToH.value = '23';
-    if (timeToM) timeToM.value = '59';
-    if (timeFromVal) timeFromVal.value = '00:00';
-    if (timeToVal) timeToVal.value = '23:59';
+    $root.find('#timeFromH').val('00');
+    $root.find('#timeFromM').val('00');
+    $root.find('#timeToH').val('23');
+    $root.find('#timeToM').val('59');
+    $root.find('#timeFromVal').val('00:00');
+    $root.find('#timeToVal').val('23:59');
 
-    root.querySelectorAll('input[type="radio"]').forEach(function (input) {
-      input.checked = input.defaultChecked;
+    $root.find('input[type="radio"]').each(function () {
+      $(this).prop('checked', this.defaultChecked);
     });
 
-    setDefaultDateValues(root);
+    setDefaultDateValues($root);
 
-    var dateFrom = root.querySelector('#dateFrom');
-    var dateTo = root.querySelector('#dateTo');
-    if (dateFrom && dateFrom._airPicker) {
-      dateFrom._airPicker.clear();
-      dateFrom._airPicker.selectDate(defaultDates().from);
-    }
-    if (dateTo && dateTo._airPicker) {
-      dateTo._airPicker.clear();
-      dateTo._airPicker.selectDate(defaultDates().to);
-    }
+    var fromPicker = $root.find('#dateFrom').data('airPicker');
+    var toPicker = $root.find('#dateTo').data('airPicker');
+    if (fromPicker) { fromPicker.clear(); fromPicker.selectDate(defaultDates().from); }
+    if (toPicker) { toPicker.clear(); toPicker.selectDate(defaultDates().to); }
 
-    resetDropboxes(root);
+    resetDropboxes($root);
 
     if (!silent) {
-      document.dispatchEvent(new CustomEvent('search-filter:reset'));
+      $(document).trigger('search-filter:reset');
     }
   }
 
-  function initSearchFilter(root) {
-    if (!root || root.dataset.searchFilterBound === 'true') return;
-    root.dataset.searchFilterBound = 'true';
+  function initSearchFilter(el) {
+    var $root = $(el);
+    if ($root.data('searchFilterBound')) return;
+    $root.data('searchFilterBound', true);
 
-    ensureDropboxes(root);
-    initDatepickers(root);
-    initTimepickers(root);
+    ensureDropboxes($root);
+    initDatepickers($root);
+    initTimepickers($root);
 
-    var searchBtn = root.querySelector('#searchBtn');
-    if (searchBtn) searchBtn.addEventListener('click', function () {
-      dispatchSearch(root);
+    $root.find('#searchBtn').on('click', function () { dispatchSearch($root); });
+    $root.find('.filterSearchBtn').on('click', function () { dispatchSearch($root); });
+    $root.find('#dropboxSearchBtn').on('click', function () { dispatchSearch($root); });
+    $root.find('#resetBtn').on('click', function () { resetFilter($root, false); });
+    $root.find('#dropboxResetBtn').on('click', function () { resetFilter($root, false); });
+
+    $root.find('#filterText1, #filterText2').on('keydown', function (e) {
+      if (e.key === 'Enter') dispatchSearch($root);
     });
 
-    root.querySelectorAll('.filterSearchBtn').forEach(function (button) {
-      button.addEventListener('click', function () {
-        dispatchSearch(root);
-      });
+    $(document).on('search-filter:reset-request', function () {
+      resetFilter($root, false);
     });
 
-    var dropboxSearchBtn = root.querySelector('#dropboxSearchBtn');
-    if (dropboxSearchBtn) dropboxSearchBtn.addEventListener('click', function () {
-      dispatchSearch(root);
-    });
-
-    var resetBtn = root.querySelector('#resetBtn');
-    if (resetBtn) resetBtn.addEventListener('click', function () {
-      resetFilter(root, false);
-    });
-
-    var dropboxResetBtn = root.querySelector('#dropboxResetBtn');
-    if (dropboxResetBtn) dropboxResetBtn.addEventListener('click', function () {
-      resetFilter(root, false);
-    });
-
-    ['#filterText1', '#filterText2'].forEach(function (selector) {
-      var input = root.querySelector(selector);
-      if (!input) return;
-      input.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') dispatchSearch(root);
-      });
-    });
-
-    document.addEventListener('search-filter:reset-request', function () {
-      resetFilter(root, false);
-    });
-
-    resetFilter(root, true);
+    resetFilter($root, true);
   }
 
   function initAll() {
-    document.querySelectorAll('.searchCard').forEach(initSearchFilter);
+    $('.searchCard').each(function () { initSearchFilter(this); });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initAll);
-  } else {
-    initAll();
-  }
+  $(function () { initAll(); });
 
   window.SearchFilter = {
     initAll: initAll
   };
-})();
+}(jQuery));

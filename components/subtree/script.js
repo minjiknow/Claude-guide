@@ -1,25 +1,30 @@
-/* =============================================
-   SUBTREE — toggle expand / active
-   ============================================= */
-(function () {
-  document.querySelectorAll('.subtreePanel').forEach(function (panel) {
-    panel.addEventListener('click', function (e) {
-      var node = e.target.closest('.subtreeNode');
-      if (!node) return;
+/* ===== SUBTREE COMPONENT ===== */
 
-      var item = node.closest('.subtreeItem');
-      var children = item ? item.querySelector(':scope > .subtreeChildren') : null;
+(function ($) {
+  'use strict';
 
-      // toggle expand if has children
-      if (children) {
-        item.classList.toggle('is-open');
-      }
+  function initSubtree() {
+    $('.subtreePanel').each(function () {
+      var $panel = $(this);
+      if ($panel.data('subtreeBound')) return;
+      $panel.data('subtreeBound', true);
 
-      // set active
-      panel.querySelectorAll('.subtreeNode').forEach(function (n) {
-        n.classList.remove('is-active');
+      $panel.on('click', function (e) {
+        var $node = $(e.target).closest('.subtreeNode');
+        if (!$node.length) return;
+
+        var $item = $node.closest('.subtreeItem');
+        var $children = $item.find('> .subtreeChildren');
+
+        if ($children.length) $item.toggleClass('is-open');
+
+        $panel.find('.subtreeNode').removeClass('is-active');
+        $node.addClass('is-active');
       });
-      node.classList.add('is-active');
     });
-  });
-})();
+  }
+
+  $(function () { initSubtree(); });
+
+  window.initSubtree = initSubtree;
+}(jQuery));

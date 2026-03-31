@@ -1,4 +1,6 @@
-(function () {
+/* ===== DATEPICKER / TIMEPICKER COMPONENT ===== */
+
+(function ($) {
   'use strict';
 
   var koLocale = {
@@ -14,7 +16,7 @@
     firstDay: 0
   };
 
-  function formatDate(date) {
+  function fmtDate(date) {
     return date.getFullYear() + '-' +
       String(date.getMonth() + 1).padStart(2, '0') + '-' +
       String(date.getDate()).padStart(2, '0');
@@ -27,18 +29,27 @@
     return { from: from, to: today };
   }
 
-  function initDatepickers() {
-    var dateFrom = document.getElementById('dateFrom');
-    var dateTo = document.getElementById('dateTo');
-    if (!dateFrom || !dateTo) return;
-
+  function setDefaultDateValues($root) {
     var dates = defaultDates();
-    dateFrom.value = formatDate(dates.from);
-    dateTo.value = formatDate(dates.to);
+    $root.find('#dateFrom').val(fmtDate(dates.from));
+    $root.find('#dateTo').val(fmtDate(dates.to));
+  }
+
+  function initDatepickers($root) {
+    var $dateFrom = $root.find('#dateFrom');
+    var $dateTo = $root.find('#dateTo');
+    if (!$dateFrom.length || !$dateTo.length || $dateFrom.data('bound')) return;
+
+    $dateFrom.data('bound', true);
+    $dateTo.data('bound', true);
+
+    setDefaultDateValues($root);
 
     if (typeof AirDatepicker === 'undefined') return;
 
-    var fromPicker = new AirDatepicker(dateFrom, {
+    var dates = defaultDates();
+
+    var fromPicker = new AirDatepicker($dateFrom[0], {
       locale: koLocale,
       dateFormat: 'yyyy-MM-dd',
       startDate: dates.from,
@@ -49,7 +60,7 @@
       ]
     });
 
-    var toPicker = new AirDatepicker(dateTo, {
+    var toPicker = new AirDatepicker($dateTo[0], {
       locale: koLocale,
       dateFormat: 'yyyy-MM-dd',
       startDate: dates.to,
@@ -61,109 +72,105 @@
       ]
     });
 
-    dateFrom._airPicker = fromPicker;
-    dateTo._airPicker = toPicker;
+    $dateFrom.data('airPicker', fromPicker);
+    $dateTo.data('airPicker', toPicker);
 
-    var fromIcon = dateFrom.closest('.datepickerWrap');
-    if (fromIcon) {
-      var fromTrigger = fromIcon.querySelector('.datepickerIcon');
-      if (fromTrigger) fromTrigger.addEventListener('click', function () { fromPicker.show(); });
-    }
-    dateFrom.addEventListener('click', function () { fromPicker.show(); });
-    dateFrom.addEventListener('focus', function () { fromPicker.show(); });
+    // 키보드 직접 입력 차단 (readonly 대신 JS로 처리)
+    $dateFrom.add($dateTo).on('keydown', function (e) { e.preventDefault(); });
 
-    var toIcon = dateTo.closest('.datepickerWrap');
-    if (toIcon) {
-      var toTrigger = toIcon.querySelector('.datepickerIcon');
-      if (toTrigger) toTrigger.addEventListener('click', function () { toPicker.show(); });
-    }
-    dateTo.addEventListener('click', function () { toPicker.show(); });
-    dateTo.addEventListener('focus', function () { toPicker.show(); });
+    $dateFrom.closest('.datepickerWrap').find('.datepickerIcon').on('click', function () { fromPicker.show(); });
+    $dateFrom.on('click focus', function () { fromPicker.show(); });
+
+    $dateTo.closest('.datepickerWrap').find('.datepickerIcon').on('click', function () { toPicker.show(); });
+    $dateTo.on('click focus', function () { toPicker.show(); });
   }
 
-  function adjustInput(input, delta) {
-    var max = input.id.endsWith('H') ? 23 : 59;
-    var value = parseInt(input.value, 10);
+  function adjustTimeInput($input, delta) {
+    var max = $input.attr('id').slice(-1) === 'H' ? 23 : 59;
+    var value = parseInt($input.val(), 10);
     if (isNaN(value)) value = 0;
     value += delta;
     if (value < 0) value = max;
     if (value > max) value = 0;
-    input.value = String(value).padStart(2, '0');
+    $input.val(String(value).padStart(2, '0'));
   }
 
-  function clampInput(input) {
-    var max = input.id.endsWith('H') ? 23 : 59;
-    var value = parseInt(input.value, 10);
+  function clampTimeInput($input) {
+    var max = $input.attr('id').slice(-1) === 'H' ? 23 : 59;
+    var value = parseInt($input.val(), 10);
     if (isNaN(value)) value = 0;
-    input.value = String(Math.max(0, Math.min(max, value))).padStart(2, '0');
+    value = Math.max(0, Math.min(max, value));
+    $input.val(String(value).padStart(2, '0'));
   }
 
-  function initTimepickers() {
-    document.querySelectorAll('.timepickerWrap').forEach(function (wrap) {
-      if (wrap.dataset.bound === 'true') return;
-      wrap.dataset.bound = 'true';
+  function initTimepickers($root) {
+    $root.find('.timepickerWrap').each(function () {
+      var $wrap = $(this);
+      if ($wrap.data('bound')) return;
+      $wrap.data('bound', true);
 
-      var displayInput = wrap.querySelector('.timeInput');
-      var panel = wrap.querySelector('.timepickerPanel');
-      if (!displayInput || !panel) return;
+      var $displayInput = $wrap.find('.timeInput');
+      var $panel = $wrap.find('.timepickerPanel');
+      if (!$displayInput.length || !$panel.length) return;
 
       function updateDisplay() {
-        var hours = wrap.querySelector('[id$="H"]');
-        var minutes = wrap.querySelector('[id$="M"]');
-        if (hours && minutes) {
-          displayInput.value = hours.value.padStart(2, '0') + ':' + minutes.value.padStart(2, '0');
+        var $h = $wrap.find('[id$="H"]');
+        var $m = $wrap.find('[id$="M"]');
+        if ($h.length && $m.length) {
+          $displayInput.val($h.val().padStart(2, '0') + ':' + $m.val().padStart(2, '0'));
         }
       }
 
-      function togglePanel(event) {
-        event.stopPropagation();
-        var isOpen = wrap.classList.contains('is-open');
-        document.querySelectorAll('.timepickerWrap.is-open').forEach(function (item) {
-          item.classList.remove('is-open');
-        });
-        if (!isOpen) wrap.classList.add('is-open');
+      function togglePanel(e) {
+        e.stopPropagation();
+        var isOpen = $wrap.hasClass('is-open');
+        $root.find('.timepickerWrap.is-open').removeClass('is-open');
+        if (!isOpen) $wrap.addClass('is-open');
       }
 
-      displayInput.addEventListener('click', togglePanel);
+      // 키보드 직접 입력 차단 (readonly 대신 JS로 처리)
+      $displayInput.on('keydown', function (e) { e.preventDefault(); });
 
-      var icon = wrap.querySelector('.timepickerIcon');
-      if (icon) icon.addEventListener('click', togglePanel);
+      $displayInput.on('click', togglePanel);
+      $wrap.find('.timepickerIcon').on('click', togglePanel);
 
-      panel.querySelectorAll('.tpickerBtn').forEach(function (button) {
-        button.addEventListener('click', function (event) {
-          event.stopPropagation();
-          var target = wrap.querySelector('#' + button.dataset.target);
-          if (!target) return;
-          adjustInput(target, button.dataset.action === 'up' ? 1 : -1);
-          updateDisplay();
-        });
+      $panel.find('.tpickerBtn').on('click', function (e) {
+        e.stopPropagation();
+        var $target = $wrap.find('#' + $(this).attr('data-target'));
+        if (!$target.length) return;
+        adjustTimeInput($target, $(this).attr('data-action') === 'up' ? 1 : -1);
+        updateDisplay();
       });
 
-      panel.querySelectorAll('.tpickerVal').forEach(function (input) {
-        input.addEventListener('change', function () {
-          clampInput(input);
-          updateDisplay();
-        });
+      $panel.find('.tpickerVal').on('change', function () {
+        clampTimeInput($(this));
+        updateDisplay();
       });
 
       updateDisplay();
     });
 
-    document.addEventListener('click', function () {
-      document.querySelectorAll('.timepickerWrap.is-open').forEach(function (wrap) {
-        wrap.classList.remove('is-open');
-      });
+    $(document).on('click', function () {
+      $root.find('.timepickerWrap.is-open').removeClass('is-open');
     });
   }
 
+  // 단독 데모 페이지용 초기화
   function init() {
-    initDatepickers();
-    initTimepickers();
+    var $root = $(document.body);
+    initDatepickers($root);
+    initTimepickers($root);
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-})();
+  $(function () { init(); });
+
+  // 외부(search-filter 등)에서 사용 가능하도록 전역 노출
+  window.DatepickerUtil = {
+    koLocale: koLocale,
+    fmtDate: fmtDate,
+    defaultDates: defaultDates,
+    setDefaultDateValues: setDefaultDateValues,
+    initDatepickers: initDatepickers,
+    initTimepickers: initTimepickers
+  };
+}(jQuery));

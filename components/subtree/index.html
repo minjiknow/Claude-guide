@@ -1,125 +1,139 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Subtree Component</title>
-  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/common.css" />
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    body { background: var(--gray-c50); padding: 24px; }
-    .demo { display: flex; gap: 16px; }
-  </style>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Subtree Component</title>
+	<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+		rel="stylesheet">
+	<link rel="stylesheet" href="../../assets/css/common.css" />
+	<link rel="stylesheet" href="style.css" />
+	<style>
+		body {
+			background: var(--color-white);
+			padding: 24px;
+		}
+
+		.demo {
+			display: flex;
+			gap: 16px;
+		}
+	</style>
 </head>
+
 <body>
-  <main class="l-page">
-    <section class="l-section">
-      <h2>Subtree</h2>
-      <div class="demo">
+	<main class="l-page">
+		<section class="l-section">
+			<h2>Subtree</h2>
+			<div class="demo">
 
-        <!-- Default state -->
-        <div class="subtreePanel">
-          <div class="subtreeHeader">Title</div>
-          <div class="subtreeBody">
-            <ul class="subtreeList">
+				<!-- Default state -->
+				<div class="subtreePanel" style="margin-top:50px;">
+					<div class="subtreeHeader">Title</div>
+					<div class="subtreeBody">
+						<ul class="subtreeList">
 
-              <li class="subtreeItem">
-                <div class="subtreeNode">
-                  <span class="subtreeChevron">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                      <polyline points="9 18 15 12 9 6"/>
-                    </svg>
-                  </span>
-                  <span class="subtreeLabel">1Depth</span>
-                </div>
-              </li>
+							<li class="subtreeItem">
+								<div class="subtreeNode">
+									<span class="subtreeChevron">
+										<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+											<polyline points="9 18 15 12 9 6" />
+										</svg>
+									</span>
+									<span class="subtreeLabel">1Depth</span>
+								</div>
+							</li>
 
-              <li class="subtreeItem is-open">
-                <div class="subtreeNode">
-                  <span class="subtreeChevron">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                      <polyline points="9 18 15 12 9 6"/>
-                    </svg>
-                  </span>
-                  <span class="subtreeLabel">1Depth</span>
-                </div>
-                <ul class="subtreeChildren">
-                  <li class="subtreeItem">
-                    <div class="subtreeNode is-active">
-                      <span class="subtreeChevron">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                          <polyline points="9 18 15 12 9 6"/>
-                        </svg>
-                      </span>
-                      <span class="subtreeLabel">2depth</span>
-                    </div>
-                  </li>
-                  <li class="subtreeItem">
-                    <div class="subtreeNode">
-                      <span class="subtreeChevron">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                          <polyline points="9 18 15 12 9 6"/>
-                        </svg>
-                      </span>
-                      <span class="subtreeLabel">2Depth</span>
-                    </div>
-                  </li>
-                </ul>
-              </li>
+							<li class="subtreeItem is-open">
+								<div class="subtreeNode">
+									<span class="subtreeChevron">
+										<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+											<polyline points="9 18 15 12 9 6" />
+										</svg>
+									</span>
+									<span class="subtreeLabel">1Depth</span>
+								</div>
+								<ul class="subtreeChildren">
+									<li class="subtreeItem">
+										<div class="subtreeNode is-active">
+											<span class="subtreeChevron">
+												<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+													stroke-width="2.5">
+													<polyline points="9 18 15 12 9 6" />
+												</svg>
+											</span>
+											<span class="subtreeLabel">2depth</span>
+										</div>
+									</li>
+									<li class="subtreeItem">
+										<div class="subtreeNode">
+											<span class="subtreeChevron">
+												<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+													stroke-width="2.5">
+													<polyline points="9 18 15 12 9 6" />
+												</svg>
+											</span>
+											<span class="subtreeLabel">2Depth</span>
+										</div>
+									</li>
+								</ul>
+							</li>
 
-              <li class="subtreeItem">
-                <div class="subtreeNode">
-                  <span class="subtreeChevron">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                      <polyline points="9 18 15 12 9 6"/>
-                    </svg>
-                  </span>
-                  <span class="subtreeLabel">1Depth</span>
-                </div>
-              </li>
+							<li class="subtreeItem">
+								<div class="subtreeNode">
+									<span class="subtreeChevron">
+										<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+											<polyline points="9 18 15 12 9 6" />
+										</svg>
+									</span>
+									<span class="subtreeLabel">1Depth</span>
+								</div>
+							</li>
 
-              <li class="subtreeItem">
-                <div class="subtreeNode">
-                  <span class="subtreeChevron">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                      <polyline points="9 18 15 12 9 6"/>
-                    </svg>
-                  </span>
-                  <span class="subtreeLabel">1Depth</span>
-                </div>
-              </li>
+							<li class="subtreeItem">
+								<div class="subtreeNode">
+									<span class="subtreeChevron">
+										<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+											<polyline points="9 18 15 12 9 6" />
+										</svg>
+									</span>
+									<span class="subtreeLabel">1Depth</span>
+								</div>
+							</li>
 
-              <li class="subtreeItem">
-                <div class="subtreeNode">
-                  <span class="subtreeChevron">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                      <polyline points="9 18 15 12 9 6"/>
-                    </svg>
-                  </span>
-                  <span class="subtreeLabel">1Depth</span>
-                </div>
-              </li>
+							<li class="subtreeItem">
+								<div class="subtreeNode">
+									<span class="subtreeChevron">
+										<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+											<polyline points="9 18 15 12 9 6" />
+										</svg>
+									</span>
+									<span class="subtreeLabel">1Depth</span>
+								</div>
+							</li>
 
-              <li class="subtreeItem">
-                <div class="subtreeNode">
-                  <span class="subtreeChevron">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                      <polyline points="9 18 15 12 9 6"/>
-                    </svg>
-                  </span>
-                  <span class="subtreeLabel">1Depth</span>
-                </div>
-              </li>
+							<li class="subtreeItem">
+								<div class="subtreeNode">
+									<span class="subtreeChevron">
+										<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+											<polyline points="9 18 15 12 9 6" />
+										</svg>
+									</span>
+									<span class="subtreeLabel">1Depth</span>
+								</div>
+							</li>
 
-            </ul>
-          </div>
-        </div>
+						</ul>
+					</div>
+				</div>
 
-      </div>
-    </section>
-  </main>
+			</div>
+		</section>
+	</main>
 
-  <script src="../../assets/js/components/subtree.js"></script>
+	<script src="../../assets/jquery/jquery-4.0.0.min.js"></script>
+	<script src="script.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tab Component</title>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/common.css" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body { padding: 40px; background: var(--gray-c50); }
+    .demo { background: var(--color-white); border-radius: 8px; overflow: hidden; max-width: 480px; display: flex; flex-direction: column; height: 300px; }
+    .tabPanel.is-active { padding: 16px 24px; }
+  </style>
+</head>
+<body>
+
+  <h2 style="margin-bottom: 16px; font-size: 14px; color: var(--gray-600);">Tab Component</h2>
+
+  <div class="demo">
+    <div data-component="tab" class="tabWrap">
+      <div class="tabList" role="tablist" aria-label="예시 탭">
+        <button class="tabBtn" data-tab-target="demoPanel1" type="button" role="tab">Tap_on</button>
+        <button class="tabBtn" data-tab-target="demoPanel2" type="button" role="tab">Tap_off</button>
+        <button class="tabBtn" data-tab-target="demoPanel3" type="button" role="tab">Tab 3</button>
+      </div>
+      <div class="tabContent">
+        <div class="tabPanel" id="demoPanel1" role="tabpanel">첫 번째 탭 콘텐츠입니다.</div>
+        <div class="tabPanel" id="demoPanel2" role="tabpanel">두 번째 탭 콘텐츠입니다.</div>
+        <div class="tabPanel" id="demoPanel3" role="tabpanel">세 번째 탭 콘텐츠입니다.</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../assets/jquery/jquery-4.0.0.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

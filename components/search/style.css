@@ -1,58 +1,50 @@
 /* =============================================
-   SEARCHBOX COMPONENT
+   SEARCHBOX — 데모 전용 스타일
+   base, states, size variants는 common.css 참조
    ============================================= */
-.search {
-  display: flex;
-  align-items: center;
-  border: 1px solid var(--gray-400);
-  border-radius: var(--border-radius-8);
-  overflow: hidden;
-  background-color: var(--color-white);
-  transition: border-color 0.15s ease;
+
+/* ── Input + button 조합 데모 ── */
+.inputCombo {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-8);
 }
 
-.search:focus-within {
-  border-color: var(--primary-500);
-  box-shadow: 0 0 0 3px var(--primary-100);
+.filterInput {
+    padding: var(--spacing-6) var(--spacing-8);
+    border: 1px solid var(--gray-300);
+    border-radius: var(--border-radius-4);
+    font-family: inherit;
+    font-size: var(--font-small);
+    color: var(--gray-900);
+    background-color: var(--color-white);
+    letter-spacing: -0.02em;
 }
 
-.searchInput {
-  flex: 1;
-  height: 40px;
-  padding: 0 var(--spacing-12);
-  border: none;
-  font-size: var(--font-small);
-  color: var(--gray-900);
-  background: transparent;
-}
-
-.searchInput::placeholder {
-  color: var(--gray-500);
-}
-
-.searchInput::-webkit-search-cancel-button {
-  display: none;
-}
-
-.searchButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  flex-shrink: 0;
-  color: var(--gray-700);
-  transition: color 0.15s ease;
-}
-
-.searchButton:hover {
-  color: var(--primary-500);
+.inputCombo .filterInput {
+    flex: 1;
+    min-width: 0;
 }
 
 /* =============================================
    PAGE LAYOUT (데모용)
    ============================================= */
 .l-page {
-  padding: var(--spacing-24);
-  max-width: 400px;
+    padding: var(--spacing-24);
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+}
+
+.l-sectionBlock {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-12);
+}
+
+.l-sectionBlock h2 {
+    font-size: var(--font-small);
+    font-weight: var(--font-weight-semibold);
+    color: var(--gray-800);
 }

@@ -2,6 +2,11 @@
    MANAGER PAGE SCRIPT (jQuery 4.0)
    ============================================= */
 
+/* ===== 더미 데이터 설정 ===== */
+var DUMMY_CONFIG = {
+  showScreen: true   // 화면 버튼 표시 여부 (true: 항상 표시, false: 랜덤)
+};
+
 /* ===== DROPBOX (CUSTOM SELECT) COMPONENT ===== */
 /* 단일 선택: data-component="dropbox"            */
 /* 멀티 선택: data-component="dropbox" data-multi="true" */
@@ -11,14 +16,22 @@
 
   // 드롭박스 열기: active 클래스 추가, inputCombo 안에 있으면 is-dropbox-open도 추가
   function _open($el) {
+    $el.removeClass('is-up');
     $el.addClass('active');
     $el.find('.dropbox-option').addClass('active');
     $el.closest('.inputCombo').addClass('is-dropbox-open');
+
+    // 뷰포트 아래로 잘리면 위로 열기
+    var $option = $el.find('.dropbox-option');
+    var rect = $option[0].getBoundingClientRect();
+    if (rect.bottom > window.innerHeight) {
+      $el.addClass('is-up');
+    }
   }
 
   // 드롭박스 닫기: active 클래스 제거
   function _close($el) {
-    $el.removeClass('active');
+    $el.removeClass('active is-up');
     $el.find('.dropbox-option').removeClass('active');
     $el.closest('.inputCombo').removeClass('is-dropbox-open');
   }
@@ -258,6 +271,9 @@
     $dateTo.data('airPicker', toPicker);
 
     // 캘린더 아이콘 클릭 시 달력 열기
+    // 키보드 직접 입력 차단 (readonly 대신 JS로 처리)
+    $dateFrom.add($dateTo).on('keydown', function (e) { e.preventDefault(); });
+
     $dateFrom.closest('.datepickerWrap').find('.datepickerIcon').on('click', function () { fromPicker.show(); });
     $dateFrom.on('click focus', function () { fromPicker.show(); });
 
@@ -363,13 +379,19 @@
     var selected = [];
 
     function open() {
+      $el.removeClass('is-up');
       $el.addClass('active');
       $optionList.addClass('active');
       $el.closest('.inputCombo').addClass('is-dropbox-open');
+
+      var rect = $optionList[0].getBoundingClientRect();
+      if (rect.bottom > window.innerHeight) {
+        $el.addClass('is-up');
+      }
     }
 
     function close() {
-      $el.removeClass('active');
+      $el.removeClass('active is-up');
       $optionList.removeClass('active');
       $el.closest('.inputCombo').removeClass('is-dropbox-open');
     }
@@ -603,14 +625,15 @@
         customer: randItem(['이름A', '이름B', '이름C', '이름D', '이름E']),
         custNo: 'C' + pad(randInt(10000, 99999), 5),
         workType: randItem(WORK_TYPES),
-        hasScreen: Math.random() > 0.3  // 30% 확률로 화면 녹화 없음
+        hasScreen: DUMMY_CONFIG.showScreen ? true : Math.random() > 0.3
       };
     });
   }
 
   // 테이블 상태 초기화: 전체 데이터, 필터 데이터, 현재 페이지, 정렬 정보
   function createState($root) {
-    var pageSize = parseInt($root.find('#pageSizeSelect').val() || '10', 10);
+    var $pageSel = $root.find('#pageSizeSelect');
+    var pageSize = parseInt($pageSel.find('.dropbox-option li.selected').attr('data-value') || '10', 10);
     var allData = generateData(87); // 총 87건 더미 데이터
 
     return {
@@ -645,7 +668,7 @@
     $checkAll.prop('checked', total > 0 && checked === total);
   }
 
-  // 행 이벤트 바인딩: 더블클릭 선택 + 체크박스 변경 시 행 강조
+  // 행 이벤트 바인딩: 더블클릭 선택 + 체크박스 변경 + 메모 버튼 클릭
   function bindRowEvents($root) {
     $root.find('.tableBody tr').on('dblclick', function () {
       $(this).toggleClass('is-selected');
@@ -656,6 +679,14 @@
     $root.find('.rowCheck').on('change', function () {
       $(this).closest('tr').toggleClass('is-selected', $(this).prop('checked'));
       syncCheckAll($root);
+    });
+
+    // 메모 버튼 클릭 → 사이드 패널 오픈
+    $root.find('.tableBody .is-memo').on('click', function () {
+      var rowData = $(this).closest('tr').data('row');
+      if (rowData && window.SidePanel) {
+        window.SidePanel.open(rowData);
+      }
     });
   }
 
@@ -716,25 +747,43 @@
 
     var playButton =
       '<button class="tableIconBtn is-play" type="button" title="녹취 듣기" aria-label="녹취 듣기">' +
-        '<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>' +
+        '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+          '<mask id="mask0_621_3013" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="16" height="16">' +
+            '<rect width="16" height="16" fill="#D9D9D9"/>' +
+          '</mask>' +
+          '<g mask="url(#mask0_621_3013)">' +
+            '<path d="M9.33333 13.816V12.4493C10.3333 12.1604 11.1389 11.6048 11.75 10.7826C12.3611 9.9604 12.6667 9.02707 12.6667 7.98263C12.6667 6.93818 12.3611 6.00485 11.75 5.18263C11.1389 4.3604 10.3333 3.80485 9.33333 3.51596V2.14929C10.7111 2.4604 11.8333 3.15763 12.7 4.24096C13.5667 5.32429 14 6.57151 14 7.98263C14 9.39374 13.5667 10.641 12.7 11.7243C11.8333 12.8076 10.7111 13.5048 9.33333 13.816ZM2 9.99929V5.99929H4.66667L8 2.66596V13.3326L4.66667 9.99929H2ZM9.33333 10.666V5.29929C9.85556 5.54374 10.2639 5.9104 10.5583 6.39929C10.8528 6.88818 11 7.42151 11 7.99929C11 8.56596 10.8528 9.09096 10.5583 9.57429C10.2639 10.0576 9.85556 10.4215 9.33333 10.666ZM6.66667 5.89929L5.23333 7.33263H3.33333V8.66596H5.23333L6.66667 10.0993V5.89929Z" fill="white"/>' +
+          '</g>' +
+        '</svg>' +
       '</button>';
 
     var memoButton =
       '<button class="tableIconBtn is-memo" type="button" title="메모" aria-label="메모">' +
-        '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">' +
-          '<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>' +
-          '<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4z"></path>' +
+        '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+          '<mask id="mask0_621_3229" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="16" height="16">' +
+            '<rect width="16" height="16" fill="#D9D9D9"/>' +
+          '</mask>' +
+          '<g mask="url(#mask0_621_3229)">' +
+            '<path d="M3.33333 13.9993C2.96667 13.9993 2.65278 13.8687 2.39167 13.6076C2.13056 13.3465 2 13.0326 2 12.666V3.33263C2 2.96596 2.13056 2.65207 2.39167 2.39096C2.65278 2.12985 2.96667 1.99929 3.33333 1.99929H9.28333L7.95 3.33263H3.33333V12.666H12.6667V8.03262L14 6.69929V12.666C14 13.0326 13.8694 13.3465 13.6083 13.6076C13.3472 13.8687 13.0333 13.9993 12.6667 13.9993H3.33333ZM6 9.99929V7.16596L12.1167 1.04929C12.25 0.915959 12.4 0.815959 12.5667 0.749292C12.7333 0.682625 12.9 0.649292 13.0667 0.649292C13.2444 0.649292 13.4139 0.682625 13.575 0.749292C13.7361 0.815959 13.8833 0.915959 14.0167 1.04929L14.95 1.99929C15.0722 2.13263 15.1667 2.27985 15.2333 2.44096C15.3 2.60207 15.3333 2.76596 15.3333 2.93263C15.3333 3.09929 15.3028 3.26318 15.2417 3.42429C15.1806 3.5854 15.0833 3.73263 14.95 3.86596L8.83333 9.99929H6ZM7.33333 8.66596H8.26667L12.1333 4.79929L11.6667 4.33263L11.1833 3.86596L7.33333 7.71596V8.66596Z" fill="#19973C"/>' +
+          '</g>' +
         '</svg>' +
       '</button>';
 
     var html = $.map(rows, function (row, index) {
       var screenButton = row.hasScreen
         ? '<button class="tableIconBtn is-screen" type="button" title="화면 보기" aria-label="화면 보기">' +
-            '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="2"></circle></svg>' +
+            '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+              '<mask id="mask0_621_3127" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="16" height="16">' +
+                '<rect width="16" height="16" fill="#D9D9D9"/>' +
+              '</mask>' +
+              '<g mask="url(#mask0_621_3127)">' +
+                '<path d="M6.33325 11L10.9999 7.99998L6.33325 4.99998V11ZM7.99992 14.6666C7.0777 14.6666 6.21103 14.4916 5.39992 14.1416C4.58881 13.7916 3.88325 13.3166 3.28325 12.7166C2.68325 12.1166 2.20825 11.4111 1.85825 10.6C1.50825 9.78887 1.33325 8.9222 1.33325 7.99998C1.33325 7.07776 1.50825 6.21109 1.85825 5.39998C2.20825 4.58887 2.68325 3.88331 3.28325 3.28331C3.88325 2.68331 4.58881 2.20831 5.39992 1.85831C6.21103 1.50831 7.0777 1.33331 7.99992 1.33331C8.92214 1.33331 9.78881 1.50831 10.5999 1.85831C11.411 2.20831 12.1166 2.68331 12.7166 3.28331C13.3166 3.88331 13.7916 4.58887 14.1416 5.39998C14.4916 6.21109 14.6666 7.07776 14.6666 7.99998C14.6666 8.9222 14.4916 9.78887 14.1416 10.6C13.7916 11.4111 13.3166 12.1166 12.7166 12.7166C12.1166 13.3166 11.411 13.7916 10.5999 14.1416C9.78881 14.4916 8.92214 14.6666 7.99992 14.6666ZM7.99992 13.3333C9.48881 13.3333 10.7499 12.8166 11.7833 11.7833C12.8166 10.75 13.3333 9.48887 13.3333 7.99998C13.3333 6.51109 12.8166 5.24998 11.7833 4.21665C10.7499 3.18331 9.48881 2.66665 7.99992 2.66665C6.51103 2.66665 5.24992 3.18331 4.21659 4.21665C3.18325 5.24998 2.66659 6.51109 2.66659 7.99998C2.66659 9.48887 3.18325 10.75 4.21659 11.7833C5.24992 12.8166 6.51103 13.3333 7.99992 13.3333Z" fill="white"/>' +
+              '</g>' +
+            '</svg>' +
           '</button>'
         : '';
 
-      return '<tr>' +
+      return '<tr data-row=\'' + JSON.stringify(row) + '\'>' +
         '<td class="col-check"><input type="checkbox" class="tableCheckbox rowCheck" aria-label="행 선택"></td>' +
         '<td class="col-icon">' + playButton + '</td>' +
         '<td class="col-no">' + (start + index + 1) + '</td>' +
@@ -849,8 +898,16 @@
 
   // 페이지 사이즈 변경 (#pageSizeSelect): 1페이지로 돌아가고 재렌더링
   function initPageSize($root, state) {
-    $root.find('#pageSizeSelect').on('change', function () {
-      var nextSize = parseInt($(this).val(), 10);
+    var $dropbox = $root.find('#pageSizeSelect');
+    $dropbox.find('.dropbox-option li').on('click', function () {
+      var $item = $(this);
+      var nextSize = parseInt($item.attr('data-value'), 10);
+      $dropbox.find('.dropbox-option li').removeClass('selected');
+      $item.addClass('selected');
+      $dropbox.find('.selected-text').text($item.find('.option-text').text());
+      $dropbox.addClass('has-value');
+      $dropbox.removeClass('active is-up');
+      $dropbox.find('.dropbox-option').removeClass('active');
       state.pageSize = isNaN(nextSize) ? 10 : nextSize;
       state.currentPage = 1;
       render($root, state);
@@ -926,6 +983,160 @@
 }(jQuery));
 
 
+/* ===== SIDE PANEL ===== */
+(function ($) {
+
+  var $panel, $backdrop, $title, $bodyOn, $bodyOff;
+
+  function initPanelDropboxes($root) {
+    $root.find('[data-component="dropbox"]').each(function () {
+      if ($.data(this, 'dropboxInstance')) return;
+      if (window.Dropbox) {
+        $.data(this, 'dropboxInstance', new window.Dropbox(this));
+      }
+    });
+  }
+
+  function openPanel(rowData) {
+    $title.text('메모 — ' + rowData.no + '번 행');
+
+    $bodyOn.html(
+      '<div class="panelForm">' +
+        '<div class="panelScrollArea">' +
+
+          '<div class="panelSection">' +
+            '<h3 class="panelSectionTitle">제목 <span class="panelRequired">*</span></h3>' +
+
+            '<div class="filterRow">' +
+              '<div class="filterField">' +
+                '<span class="filterLabel">타이틀</span>' +
+                '<div class="dropbox h-sm w-full" data-component="dropbox">' +
+                  '<p class="selected-text">' + rowData.agent + '</p>' +
+                  '<ul class="dropbox-option">' +
+                    '<li class="is-selected"><p class="option-text">' + rowData.agent + '</p></li>' +
+                  '</ul>' +
+                '</div>' +
+              '</div>' +
+              '<div class="filterField">' +
+                '<span class="filterLabel">타이틀</span>' +
+                '<div class="search h-sm w-full">' +
+                  '<input class="searchInput w-full" type="text" value="' + rowData.customer + '" autocomplete="off" />' +
+                  '<button class="searchButton filterSearchBtn" type="button" title="검색" aria-label="검색">' +
+                    '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>' +
+                  '</button>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+
+            '<div class="filterRow">' +
+              '<div class="filterField">' +
+                '<span class="filterLabel">타이틀</span>' +
+                '<input class="filterInput h-sm w-full" type="text" value="' + rowData.workType + '" />' +
+              '</div>' +
+            '</div>' +
+
+            '<div class="filterRow">' +
+              '<div class="filterField">' +
+                '<span class="filterLabel">타이틀</span>' +
+                '<div class="search h-sm w-full">' +
+                  '<input class="searchInput w-full" type="text" value="' + rowData.branch + '" autocomplete="off" />' +
+                  '<button class="searchButton filterSearchBtn" type="button" title="검색" aria-label="검색">' +
+                    '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>' +
+                  '</button>' +
+                '</div>' +
+              '</div>' +
+              '<div class="filterField">' +
+                '<span class="filterLabel">타이틀</span>' +
+                '<input class="filterInput h-sm w-full" type="text" placeholder="입력하세요" />' +
+              '</div>' +
+              '<button class="btn is-primary h-sm" type="button">버튼</button>' +
+            '</div>' +
+          '</div>' +
+
+          '<div class="panelSection">' +
+            '<h3 class="panelSectionTitle">제목</h3>' +
+
+            '<div class="filterRow">' +
+              '<div class="filterField">' +
+                '<span class="filterLabel">타이틀</span>' +
+                '<input class="filterInput h-sm w-full" type="text" value="' + rowData.customer + '" />' +
+              '</div>' +
+            '</div>' +
+
+            '<div class="filterRow">' +
+              '<div class="filterField">' +
+                '<span class="filterLabel">타이틀</span>' +
+                '<div class="dropbox h-sm w-full" data-component="dropbox">' +
+                  '<p class="selected-text">' + rowData.workType + '</p>' +
+                  '<ul class="dropbox-option">' +
+                    '<li class="is-selected"><p class="option-text">' + rowData.workType + '</p></li>' +
+                  '</ul>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+
+            '<div class="filterRow">' +
+              '<div class="filterField">' +
+                '<textarea class="panelTextarea" placeholder="입력하세요" maxlength="999"></textarea>' +
+                '<div class="panelCharCount"><span class="panelCharCurrent">0</span>/999</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+
+        '</div>' +
+        '<div class="panelFooter">' +
+          '<button class="btn panelFooterBtn w-full" type="button">버튼</button>' +
+        '</div>' +
+      '</div>'
+    );
+
+    initPanelDropboxes($bodyOn);
+
+    $bodyOn.find('.panelTextarea').on('input', function () {
+      $(this).closest('.filterField').find('.panelCharCurrent').text($(this).val().length);
+    });
+
+    $bodyOff.html('<p class="panelEmptyText">Tap_off 탭 내용입니다.</p>');
+
+    var tabInstance = window.Tab && window.Tab.getInstance($('#sidePanelTab')[0]);
+    if (tabInstance) tabInstance.reset();
+
+    $backdrop.addClass('is-open');
+    $panel.addClass('is-open');
+    $panel.attr('aria-hidden', 'false');
+    $('body').css('overflow', 'hidden');
+  }
+
+  function closePanel() {
+    $backdrop.removeClass('is-open');
+    $panel.removeClass('is-open');
+    $panel.attr('aria-hidden', 'true');
+    $('body').css('overflow', '');
+  }
+
+  function initSidePanel() {
+    $panel    = $('#sidePanel');
+    $backdrop = $('#sideBackdrop');
+    $title    = $('#sidePanelTitle');
+    $bodyOn   = $('#sidePanelBodyOn');
+    $bodyOff  = $('#sidePanelBodyOff');
+
+    if (!$panel.length) return;
+
+    $backdrop.on('click', closePanel);
+
+    $(document).on('keydown', function (e) {
+      if (e.key === 'Escape' && $panel.hasClass('is-open')) closePanel();
+    });
+  }
+
+  $(function () { initSidePanel(); });
+
+  window.SidePanel = { open: openPanel, close: closePanel };
+
+}(jQuery));
+
+
 /* ===== PAGE SHELL SCRIPT ===== */
 
 (function ($) {
@@ -948,6 +1159,7 @@
 
       if (isActive) {
         $icon.removeClass('is-active');
+        $textItems.find('.lnbLink1depth').removeClass('is-active');
         $lnbText.removeClass('is-open');
         return;
       }
@@ -955,8 +1167,10 @@
       // 다른 아이콘/메뉴 모두 비활성화 후 현재 것만 활성화
       $iconItems.removeClass('is-active');
       $textItems.removeClass('is-open');
+      $textItems.find('.lnbLink1depth').removeClass('is-active');
       $icon.addClass('is-active');
       $targetItem.addClass('is-open');
+      $targetItem.find('.lnbLink1depth').addClass('is-active');
       $lnbText.addClass('is-open');
     }).on('keydown', function (e) {
       // Enter / Space 키보드 접근성 지원
@@ -972,9 +1186,11 @@
       $item.find('.lnbLink1depth').on('click', function () {
         var wasOpen = $item.hasClass('is-open');
         $textItems.removeClass('is-open');
+        $textItems.find('.lnbLink1depth').removeClass('is-active');
 
         if (!wasOpen) {
           $item.addClass('is-open');
+          $(this).addClass('is-active');
           // 해당 메뉴에 연결된 아이콘 활성화
           $iconItems.each(function () {
             $(this).toggleClass('is-active', $(this).attr('data-target') === $item.attr('id'));

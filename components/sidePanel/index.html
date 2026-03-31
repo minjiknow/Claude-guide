@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>SidePanel Component</title>
+
+	<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+		rel="stylesheet">
+	<link rel="stylesheet" href="../../assets/css/common.css" />
+	<link rel="stylesheet" href="../../components/tab/style.css" />
+	<link rel="stylesheet" href="../../components/dropdown/style.css" />
+	<link rel="stylesheet" href="../../components/search-filter/style.css" />
+	<link rel="stylesheet" href="style.css" />
+
+	<style>
+		body { background: var(--gray-50); }
+		.demo-wrap {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			min-height: 100vh;
+			padding: 40px;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="demo-wrap">
+		<button class="btn is-primary" id="demoOpenBtn" type="button">
+			<span class="btnText">패널 열기</span>
+		</button>
+	</div>
+
+	<!-- 백드롭 -->
+	<div class="sideBackdrop" id="sideBackdrop" aria-hidden="true"></div>
+
+	<!-- 사이드 패널 -->
+	<aside class="sidePanel" id="sidePanel" role="dialog" aria-modal="true" aria-labelledby="sidePanelTitle">
+		<div class="sidePanelHeader">
+			<h2 class="sidePanelTitle" id="sidePanelTitle">메모</h2>
+		</div>
+		<div data-component="tab" class="tabWrap" id="sidePanelTab">
+			<div class="tabList" role="tablist" aria-label="메모 탭">
+				<button class="tabBtn" data-tab-target="tabPanel1" type="button" role="tab">Tap_on</button>
+				<button class="tabBtn" data-tab-target="tabPanel2" type="button" role="tab">Tap_off</button>
+			</div>
+			<div class="tabContent">
+				<div class="tabPanel" id="tabPanel1" role="tabpanel">
+					<div class="sidePanelBody" id="sidePanelBodyOn"></div>
+				</div>
+				<div class="tabPanel" id="tabPanel2" role="tabpanel">
+					<div class="sidePanelBody" id="sidePanelBodyOff"></div>
+				</div>
+			</div>
+		</div>
+	</aside>
+
+	<script src="../../assets/jquery/jquery-4.0.0.min.js"></script>
+	<script src="../../components/tab/script.js"></script>
+	<script src="script.js"></script>
+	<script>
+		$(function () {
+			$('#demoOpenBtn').on('click', function () {
+				window.SidePanel.open({
+					title: '메모 — 1번 행',
+					contentOn:
+						'<div class="panelForm">' +
+							'<div class="panelScrollArea">' +
+
+								'<div class="panelSection">' +
+									'<h3 class="panelSectionTitle">제목 <span class="panelRequired">*</span></h3>' +
+
+									'<div class="filterRow">' +
+										'<div class="filterField">' +
+											'<span class="filterLabel">타이틀</span>' +
+											'<div class="dropbox h-sm w-full">' +
+												'<p class="selected-text">홍길동</p>' +
+												'<ul class="dropbox-option">' +
+													'<li class="is-selected"><p class="option-text">홍길동</p></li>' +
+												'</ul>' +
+											'</div>' +
+										'</div>' +
+										'<div class="filterField">' +
+											'<span class="filterLabel">타이틀</span>' +
+											'<div class="search h-sm w-full">' +
+												'<input class="searchInput w-full" type="text" value="이름A" autocomplete="off" />' +
+												'<button class="searchButton" type="button" title="검색" aria-label="검색">' +
+													'<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>' +
+												'</button>' +
+											'</div>' +
+										'</div>' +
+									'</div>' +
+
+									'<div class="filterRow">' +
+										'<div class="filterField">' +
+											'<span class="filterLabel">타이틀</span>' +
+											'<input class="filterInput h-sm w-full" type="text" value="민원상담" />' +
+										'</div>' +
+									'</div>' +
+
+									'<div class="filterRow">' +
+										'<div class="filterField">' +
+											'<span class="filterLabel">타이틀</span>' +
+											'<div class="search h-sm w-full">' +
+												'<input class="searchInput w-full" type="text" value="서울지점" autocomplete="off" />' +
+												'<button class="searchButton" type="button" title="검색" aria-label="검색">' +
+													'<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>' +
+												'</button>' +
+											'</div>' +
+										'</div>' +
+										'<div class="filterField">' +
+											'<span class="filterLabel">타이틀</span>' +
+											'<input class="filterInput h-sm w-full" type="text" placeholder="입력하세요" />' +
+										'</div>' +
+										'<button class="btn is-primary h-sm" type="button">버튼</button>' +
+									'</div>' +
+								'</div>' +
+
+								'<div class="panelSection">' +
+									'<h3 class="panelSectionTitle">제목</h3>' +
+
+									'<div class="filterRow">' +
+										'<div class="filterField">' +
+											'<span class="filterLabel">타이틀</span>' +
+											'<input class="filterInput h-sm w-full" type="text" value="이름A" />' +
+										'</div>' +
+									'</div>' +
+
+									'<div class="filterRow">' +
+										'<div class="filterField">' +
+											'<span class="filterLabel">타이틀</span>' +
+											'<div class="dropbox h-sm w-full">' +
+												'<p class="selected-text">민원상담</p>' +
+												'<ul class="dropbox-option">' +
+													'<li class="is-selected"><p class="option-text">민원상담</p></li>' +
+												'</ul>' +
+											'</div>' +
+										'</div>' +
+									'</div>' +
+
+									'<div class="filterRow">' +
+										'<div class="filterField">' +
+											'<textarea class="panelTextarea" placeholder="입력하세요" maxlength="999"></textarea>' +
+											'<div class="panelCharCount"><span class="panelCharCurrent">0</span>/999</div>' +
+										'</div>' +
+									'</div>' +
+								'</div>' +
+
+							'</div>' +
+							'<div class="panelFooter">' +
+								'<button class="btn panelFooterBtn w-full" type="button">버튼</button>' +
+							'</div>' +
+						'</div>',
+					contentOff: '<p class="panelEmptyText">Tap_off 탭 내용입니다.</p>',
+					onOpen: function () {
+						$('#sidePanelBodyOn .panelTextarea').on('input', function () {
+							$(this).closest('.filterField').find('.panelCharCurrent').text($(this).val().length);
+						});
+					}
+				});
+			});
+		});
+	</script>
+
+</body>
+
+</html>

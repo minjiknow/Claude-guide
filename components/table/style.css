@@ -21,7 +21,6 @@
         border-color var(--transition),
         opacity var(--transition);
     padding: var(--spacing-6) 14px;
-    height: 32px;
 }
 
 .btn .btnIcon {
@@ -33,10 +32,12 @@
     justify-content: center;
 }
 
-.btn.is-sm {
-    height: 28px;
-    font-size: var(--font-xsmall);
+.btn.h-sm {
+    height: 36px;
+    font-size: var(--font-primary);
+    font-weight: var(--font-weight-regular);
     padding: 4px 10px;
+    min-width: 65px;
 }
 
 .btn.is-add {
@@ -46,7 +47,7 @@
 }
 
 .btn.is-add:hover {
-    background-color: #3a6ac8;
+    background-color: var(--secondary-600);
 }
 
 .btn.is-edit,
@@ -76,31 +77,35 @@
    ============================================= */
 .resultsCard {
     background: var(--color-white);
-    border: 1px solid var(--gray-300);
-    border-radius: var(--border-radius-4);
-}
-
-.resultsCardBody {
-    padding: var(--spacing-8) var(--spacing-12);
 }
 
 .resultsHeader {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: var(--spacing-6);
+    padding: 38px 0 8px;
+    background: var(--color-white);
+    border-bottom: 1px solid var(--gray-900);
+    gap: var(--spacing-8);
 }
 
 .resultsHeaderLeft {
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
+    align-items: flex-end;
     gap: var(--spacing-6);
 }
 
 .resultsCount {
     font-size: var(--font-small);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-semibold);
     color: var(--gray-900);
+}
+
+.resultsCountNum {
+    font-size: var(--font-xsmall);
+    font-weight: var(--font-weight-medium);
+    color: var(--gray-600);
 }
 
 .resultsCountDot {
@@ -114,6 +119,8 @@
 }
 
 .resultsCountDesc {
+    display: flex;
+    align-items: center;
     font-size: var(--font-xsmall);
     color: var(--gray-600);
 }
@@ -123,12 +130,19 @@
     align-items: center;
     gap: var(--spacing-4);
 }
+.resultsHeaderActions button {
+    background-color: var(--secondary-500);
+    color: var(--color-white);
+    border-color: var(--secondary-500);
+}
+.resultsHeaderActions button:hover {
+    background-color: var(--secondary-600);
+    border-color: var(--secondary-600);
+}
 
 .tableWrap {
     width: 100%;
     overflow-x: auto;
-    border: 1px solid var(--gray-300);
-    border-radius: var(--border-radius-4);
 }
 
 .tableWrap::-webkit-scrollbar {
@@ -142,30 +156,26 @@
 
 .table {
     width: 100%;
+    table-layout: fixed;
     border-collapse: collapse;
-    font-size: 12px;
+    font-size: var(--font-xsmall);
     background: var(--color-white);
     white-space: nowrap;
 }
 
 .tableHead tr {
-    background-color: var(--gray-c50);
+    background-color: var(--color-white);
     border-bottom: 1px solid var(--gray-300);
 }
 
 .table th {
     padding: 7px var(--spacing-6);
-    font-size: 11px;
-    font-weight: var(--font-weight-medium);
-    color: var(--gray-700);
+    font-size: var(--font-small);
+    font-weight: var(--font-weight-regular);
+    color: var(--gray-600);
     text-align: center;
-    border-right: 1px solid var(--gray-300);
     letter-spacing: -0.02em;
     white-space: nowrap;
-}
-
-.table th:last-child {
-    border-right: none;
 }
 
 .table th.is-sortable {
@@ -173,10 +183,6 @@
     user-select: none;
 }
 
-.table th.is-sortable:hover {
-    background-color: var(--gray-c100);
-    color: var(--gray-900);
-}
 
 .table th[data-sort="asc"]::after {
     content: " ↑";
@@ -191,62 +197,50 @@
     transition: background var(--transition);
 }
 
-.tableBody tr:last-child {
-    border-bottom: none;
-}
 
 .tableBody tr:hover {
     background-color: var(--gray-c50);
 }
 
 .tableBody tr.is-selected {
-    background-color: rgba(69, 124, 225, 0.06);
+    background-color: rgba(var(--secondary-rgb), 0.06);
+}
+.tableBody tr.is-disabled td {
+    color: var(--gray-500);
 }
 
 .table td {
-    padding: var(--spacing-6);
+    padding: var(--spacing-6) var(--spacing-6);
     color: var(--gray-800);
     text-align: center;
-    border-right: 1px solid var(--gray-300);
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.table td:last-child {
-    border-right: none;
-}
-
-.col-check {
-    width: 32px;
-}
-
-.col-no {
-    width: 40px;
-}
-
-.col-icon {
-    width: 36px;
-}
-
-.col-date {
-    width: 130px;
-}
-
-.col-num {
-    width: 72px;
-}
-
-.col-text {
-    width: auto;
-    min-width: 70px;
-}
+/* 컬럼 너비는 <colgroup>에서 제어 */
 
 .tableCheckbox {
-    width: 14px;
-    height: 14px;
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
     cursor: pointer;
-    accent-color: var(--secondary-500);
     vertical-align: middle;
+    flex-shrink: 0;
+    background-image: url("../../assets/icons/unchkbx.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.tableCheckbox:checked {
+    background-image: url("../../assets/icons/chkbx.svg");
+}
+.tableCheckbox:disabled {
+    cursor: default;
+    background-image: url("../../assets/icons/dis_unchkbx.svg");
+}
+.tableCheckbox:checked:disabled {
+    background-image: url("../../assets/icons/dis_chkbx.svg");
 }
 
 .tableIconBtn {
@@ -255,7 +249,7 @@
     justify-content: center;
     width: 24px;
     height: 24px;
-    border-radius: 50%;
+    border-radius: var(--border-radius-4);
     cursor: pointer;
     border: none;
     background: transparent;
@@ -268,7 +262,7 @@
 }
 
 .tableIconBtn.is-play {
-    background-color: var(--state3);
+    background-color: var(--color-success);
     color: var(--color-white);
 }
 
@@ -278,10 +272,8 @@
 }
 
 .tableIconBtn.is-memo {
-    background-color: transparent;
-    color: var(--gray-500);
-    border: 1.5px solid var(--gray-400);
-    border-radius: var(--border-radius-4);
+    background-color: rgba(25, 151, 60, 0.1);
+    border: none;
 }
 
 .tableIconBtn.is-memo:hover {
@@ -309,9 +301,9 @@
 .tableFooter {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: var(--spacing-8);
-    border-top: 1px solid var(--gray-300);
+    justify-content: flex-start;
+    padding: var(--spacing-12) 0;
+    margin-top: var(--spacing-8);
 }
 
 .tableFooterLeft {
@@ -322,27 +314,25 @@
     color: var(--gray-700);
 }
 
-.pageSizeSelect {
+.pageSizeDropbox {
     height: 28px;
-    padding: 0 22px 0 var(--spacing-8);
-    border: 1px solid var(--gray-400);
-    border-radius: var(--border-radius-4);
-    font-family: inherit;
+    padding: 0 var(--spacing-8);
     font-size: var(--font-xsmall);
-    color: var(--gray-900);
-    background-color: var(--color-white);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23929292' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 6px center;
-    appearance: none;
-    outline: none;
-    cursor: pointer;
+    flex: 0 0 auto;
+    min-width: 80px;
+}
+.pageSizeDropbox .selected-text {
+    font-size: var(--font-xsmall);
+}
+.pageSizeDropbox .dropbox-option li {
+    font-size: var(--font-xsmall);
 }
 
 .pagination {
     display: flex;
     align-items: center;
     gap: 2px;
+    margin-left: calc(100% / 3);
 }
 
 .pageBtn {
@@ -352,7 +342,7 @@
     min-width: 28px;
     height: 28px;
     padding: 0 4px;
-    border: 1px solid var(--gray-300);
+    border: none;
     border-radius: var(--border-radius-4);
     font-size: var(--font-xsmall);
     font-family: inherit;
@@ -361,28 +351,23 @@
     cursor: pointer;
     transition:
         background var(--transition),
-        color var(--transition),
-        border-color var(--transition);
+        color var(--transition);
     user-select: none;
 }
 
 .pageBtn:hover:not(:disabled) {
     background-color: var(--gray-c100);
-    border-color: var(--gray-400);
     color: var(--gray-900);
 }
 
 .pageBtn.is-active {
-    background-color: var(--secondary-500);
-    border-color: var(--secondary-500);
-    color: var(--color-white);
+    color: var(--color-mainbrand);
     font-weight: var(--font-weight-medium);
 }
 
 .pageBtn:disabled {
     opacity: 0.4;
-    cursor: default;
-    pointer-events: none;
+    cursor: pointer;
 }
 
 .pageBtn.is-nav {

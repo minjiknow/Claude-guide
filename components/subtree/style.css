@@ -4,12 +4,14 @@
 .subtreePanel {
   display: flex;
   flex-direction: column;
-  width: 220px;
+  width: 280px;
   flex-shrink: 0;
-  background: var(--color-white);
+  background: var(--gray-c50);
   border: 1px solid var(--gray-300);
   border-radius: var(--border-radius-4);
   overflow: hidden;
+  align-self: flex-start;
+  height: 100%;
 }
 
 .subtreeHeader {
